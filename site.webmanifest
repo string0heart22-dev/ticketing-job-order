@@ -1,0 +1,21 @@
+{
+    "name": "UBILINK",
+    "short_name": "UBILINK",
+    "description": "UBILINK Communication Corporation - Ticket Management System",
+    "icons": [
+        {
+            "src": "/favicon-96x96.png",
+            "sizes": "96x96",
+            "type": "image/png"
+        },
+        {
+            "src": "/apple-touch-icon.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#dc2626",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "start_url": "/"
+}

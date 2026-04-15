@@ -1,0 +1,704 @@
+﻿
+:root {
+    --navbar-height: 54px;
+    --sidebar-width: 260px;
+    --transition-time: 240ms;
+    --bg: #f5f7fb;
+    --navbar-start: #910013;
+    --navbar-end: #d60b0e;
+    --sidebar-bg: linear-gradient(80deg, #df0606, #1d0f0d);
+    --sidebar-color: #ffffff;
+    --accent: #3b82f6;
+}
+
+/* Reset / base */
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; font-size: 14px; font-family: Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: #111827; }
+
+/* Top bar (fixed) */
+.topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--navbar-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    background: linear-gradient(80deg, #6d1a0f, #06000c);
+    color: white;
+    z-index: 120;
+    box-shadow: 0 2px 24px rgba(0,0,0,0.12);
+}
+
+/* Logo container - centered */
+.topbar .logo-container {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+    align-items: right;
+    
+    pointer-events: none;
+}
+
+.topbar .logo-container .logo {
+    height: 38px;
+    width: auto;
+    display: block;
+    pointer-events: auto;
+}
+
+.topbar .brand { display: flex; align-items: center; gap: 12px; margin: 0 auto; }
+.topbar .logo-img { height: 38px; width: auto; display: block; }
+    .topbar .app-title {
+        color: white;
+        text-decoration: none;
+        font-size: 1.125rem;
+        font-weight: 600;
+        position: fixed;
+        left: 72px;
+    }
+
+/* Place the toggle visually at the left side of the topbar */
+.topbar .sidebar-toggle-wrapper { 
+    position: relative;
+    z-index: 10;
+}
+
+.topbar .controls { 
+    position: relative;
+    z-index: 10;
+    display: flex; 
+    align-items: center; 
+    gap: 16px; 
+}
+
+.topbar .btn {
+    background: transparent;
+    border: none;
+    color: white;
+    height: 36px;
+    width: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+}
+.topbar .btn:focus { outline: 3px solid rgba(255,255,255,0.12); }
+.topbar .btn:hover { background: rgba(255,255,255,0.04); }
+
+/* Sidebar (vertical nav) */
+.sidebar {
+    position: fixed;
+    top: var(--navbar-height);
+    left: 0;
+    width: var(--sidebar-width);
+    height: calc(100% - var(--navbar-height));
+    background: var(--sidebar-bg);
+    color: var(--sidebar-color);
+    padding: 16px; /* removed large bottom padding so items flow naturally */
+    transition: transform var(--transition-time) ease, box-shadow var(--transition-time);
+    z-index: 110;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.12);
+    overflow-y: auto;
+}
+
+/* Prevent transition flicker on page load */
+.sidebar.no-transition {
+    transition: none !important;
+}
+
+/* Force sidebar open when html has sidebar-force-open class (prevents flicker) */
+html.sidebar-force-open .sidebar {
+    transform: translateX(0) !important;
+}
+
+/* Collapsed sidebar (hidden off-canvas) */
+.sidebar.collapsed {
+    transform: translateX(calc(-1 * var(--sidebar-width))) !important;
+}
+
+/* Open sidebar (visible) */
+.sidebar.open {
+    transform: translateX(0) !important;
+}
+
+/* Sidebar nav items */
+.sidebar nav ul { list-style: none; padding: 0; margin: 0; position: relative; }
+.sidebar nav li + li { margin-top: 8px; }
+.sidebar nav a, .sidebar nav button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 8px 10px;
+    color: var(--sidebar-color);
+    text-decoration: none;
+    border-radius: 6px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.875rem;
+    position: relative;
+}
+.sidebar nav a:hover, .sidebar nav a:focus,
+.sidebar nav button:hover, .sidebar nav button:focus {
+    background: rgba(255,255,255,0.04);
+    outline: none;
+}
+
+/* Submenu indicator: shows a chevron/right-caret on items that have submenus */
+.sidebar .has-submenu > .submenu-toggle::after {
+    content: "▸"; /* indicator glyph */
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%) rotate(0deg);
+    transition: transform var(--transition-time) ease, opacity var(--transition-time) ease;
+    opacity: 0.9;
+    font-size: 0.9rem;
+    line-height: 1;
+    pointer-events: none;
+}
+
+/* When submenu is open rotate chevron to point down */
+.sidebar .has-submenu.open > .submenu-toggle::after,
+.sidebar .has-submenu > .submenu-toggle[aria-expanded="true"]::after {
+    transform: translateY(-50%) rotate(90deg);
+}
+
+/* Optionally reduce visual weight for nested items (submenus) */
+.sidebar .submenu li a,
+.sidebar .submenu li button {
+    padding-left: 16px;
+    font-size: 0.95rem;
+}
+
+/* Sidebar submenus */
+.sidebar .submenu { padding-left: 8px; margin-top: 6px; display: none; }
+.sidebar .has-submenu.open > .submenu { display: block; }
+
+/* Ensure submenus animate (keeps JS collapse/expand working) */
+.sidebar .submenu {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height var(--transition-time) ease;
+}
+.sidebar .has-submenu.open > .submenu {
+    max-height: 1000px; /* large enough to reveal contents; actual height is controlled in JS */
+}
+
+/* LOG OUT is a normal list item below SETTINGS (no absolute positioning) */
+.sidebar .logout {
+    position: static;
+    margin-top: 8px;
+    padding-top: 0;
+    border-top: none;
+    background: transparent;
+}
+.sidebar .logout a {
+    display: block;
+    padding: 10px 12px;
+    color: var(--sidebar-color);
+    text-decoration: none;
+    border-radius: 6px;
+}
+.sidebar .logout a:hover,
+.sidebar .logout a:focus {
+    background: rgba(255,255,255,0.04);
+}
+
+/* Main content shifts to the right of sidebar and below topbar */
+.main {
+    padding: 20px;
+    padding-top: calc(var(--navbar-height) + 20px);
+    margin-left: var(--sidebar-width);
+    transition: margin-left var(--transition-time);
+    min-height: 100vh;
+}
+
+/* When sidebar is collapsed, let main fill width */
+.sidebar.collapsed ~ .main {
+    margin-left: 0;
+}
+
+/* Mobile / narrow screens:
+   - Sidebar becomes off-canvas by default and overlayed when opened
+   - Topbar shows hamburger to toggle sidebar
+*/
+@media (max-width: 900px) {
+    .sidebar { 
+        transform: translateX(calc(-1 * var(--sidebar-width))); 
+        z-index: 1000;
+    }
+    .sidebar.open { 
+        transform: translateX(0) !important; 
+        box-shadow: 6px 0 24px rgba(0,0,0,0.28); 
+    }
+    .sidebar.collapsed { 
+        transform: translateX(calc(-1 * var(--sidebar-width))) !important; 
+    }
+    .main { margin-left: 0; }
+}
+
+
+/* Overlay used when sidebar open on mobile */
+.sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.35);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-time);
+    z-index: 105;
+}
+.sidebar-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* responsive tweaks */
+@media (max-width: 200px) {
+    .topbar .logo-img { height: 1px; }
+    .topbar .app-title { font-size: 1rem; }
+}
+
+
+/* User Profile in Topbar */
+.topbar .controls {
+    position: absolute;
+    right: 12px;
+    left: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.user-profile:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+}
+
+.user-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: white;
+    line-height: 1.2;
+}
+
+.user-role {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.8);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1;
+}
+
+.user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 700;
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .user-info {
+        display: none;
+    }
+    
+    .user-profile {
+        padding: 6px;
+    }
+}
+
+
+/* ============================================
+   MOBILE RESPONSIVE STYLES
+   ============================================ */
+
+/* Tablets and smaller (max-width: 1024px) */
+@media (max-width: 1024px) {
+    :root {
+        --sidebar-width: 240px;
+    }
+    
+    .main {
+        padding: 20px;
+    }
+}
+
+/* Mobile devices (max-width: 768px) */
+@media (max-width: 768px) {
+    :root {
+        --navbar-height: 56px;
+        --sidebar-width: 280px;
+    }
+    
+    /* Topbar adjustments */
+    .topbar {
+        padding: 0 12px;
+        height: var(--navbar-height);
+    }
+    
+    .topbar .app-title {
+        font-size: 1rem;
+        left: 60px;
+    }
+    
+    .topbar .logo-img {
+        height: 40px;
+    }
+    
+    .topbar .btn {
+        width: 40px;
+        height: 40px;
+    }
+    
+    /* Sidebar - full width on mobile */
+    .sidebar {
+        width: var(--sidebar-width);
+        padding: 12px;
+    }
+    
+    .sidebar.collapsed {
+        transform: translateX(calc(-1 * var(--sidebar-width)));
+    }
+    
+    .sidebar nav a,
+    .sidebar nav button {
+        padding: 12px 10px;
+        font-size: 0.9rem;
+    }
+    
+    .submenu a {
+        padding: 10px 8px;
+        font-size: 0.85rem;
+    }
+    
+    /* Main content */
+    .main {
+        margin-top: 0;
+        padding-top: var(--navbar-height);
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-bottom: 15px;
+        margin-left: 0;
+    }
+    
+    /* Sidebar overlay - darker on mobile */
+    .sidebar-overlay {
+        background: rgba(0, 0, 0, 0.6);
+    }
+}
+
+/* Small mobile devices (max-width: 480px) */
+@media (max-width: 480px) {
+    :root {
+        --navbar-height: 52px;
+        --sidebar-width: 260px;
+    }
+    
+    .topbar {
+        padding: 0 8px;
+    }
+    
+    .topbar .app-title {
+        font-size: 0.9rem;
+        left: 52px;
+    }
+    
+    .topbar .logo-img {
+        height: 36px;
+    }
+    
+    .topbar .btn {
+        width: 36px;
+        height: 36px;
+        font-size: 1.2rem;
+    }
+    
+    .sidebar {
+        width: var(--sidebar-width);
+        padding: 10px;
+    }
+    
+    .main {
+        padding-top: var(--navbar-height);
+        padding-left: 12px;
+        padding-right: 12px;
+        padding-bottom: 12px;
+    }
+    
+    .main h1 {
+        font-size: 1.3rem;
+    }
+    
+    .main h2 {
+        font-size: 1.1rem;
+    }
+}
+
+/* Landscape orientation on mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+    :root {
+        --navbar-height: 48px;
+    }
+    
+    .topbar .logo-img {
+        height: 36px;
+    }
+    
+    .sidebar {
+        height: calc(100vh - var(--navbar-height));
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    /* Larger touch targets */
+    .topbar .btn {
+        min-width: 44px;
+        min-height: 44px;
+    }
+    
+    .sidebar nav a,
+    .sidebar nav button {
+        min-height: 44px;
+    }
+    
+    /* Remove hover effects on touch devices */
+    .topbar .btn:hover {
+        background: transparent;
+    }
+    
+    .sidebar nav a:hover,
+    .sidebar nav button:hover {
+        background: rgba(255, 255, 255, 0.08);
+    }
+}
+
+/* Prevent text selection on interactive elements */
+@media (max-width: 768px) {
+    button,
+    .btn,
+    .tab-btn,
+    .city-btn {
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+}
+
+
+/* Main content buttons */
+.main .btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+    margin-right: 5px;
+    font-size: 14px;
+    display: inline-block;
+}
+
+.main .btn-add {
+    background: #28a745;
+}
+
+.main .btn-req {
+    background: #007bff;
+}
+
+.main .btn-remove {
+    background: #dc3545;
+    padding: 5px 10px;
+}
+
+.main .btn-clear {
+    background: #6c757d;
+}
+
+/* Keep Tickets submenu always expanded */
+.sidebar .has-submenu.tickets-menu {
+    background: transparent;
+}
+
+.sidebar .has-submenu.tickets-menu > .submenu {
+    display: block !important;
+    max-height: none !important;
+}
+
+.sidebar .has-submenu.tickets-menu > .submenu-toggle::after {
+    transform: translateY(-50%) rotate(90deg);
+}
+
+/* Active link styling in submenu */
+.sidebar .submenu li a.active {
+    background: rgba(255, 255, 255, 0.2);
+    border-left: 3px solid #fff;
+    font-weight: 600;
+}
+
+/* ============ NEW SIDEBAR SECTION STYLES ============ */
+.sidebar-section {
+    margin-bottom: 20px;
+    padding: 0 12px;
+}
+.sidebar-section:first-child {
+    margin-top: 15px;
+}
+.section-title {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #94a3b8;
+    font-weight: 700;
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+}
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    color: #cbd5e1;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+}
+.nav-link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, rgba(99, 102, 241, 0.15) 0%, transparent 100%);
+    transition: width 0.3s ease;
+}
+.nav-link:hover::before {
+    width: 100%;
+}
+.nav-link:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateX(4px);
+}
+.nav-link.active {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+}
+.nav-link.active::before {
+    display: none;
+}
+.nav-icon {
+    font-size: 18px;
+    width: 26px;
+    text-align: center;
+    flex-shrink: 0;
+}
+.nav-text {
+    white-space: nowrap;
+}
+.logout-link {
+    color: #f87171;
+    margin-top: 8px;
+}
+.logout-link:hover {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+}
+.logout-link::before {
+    background: linear-gradient(90deg, rgba(239, 68, 68, 0.15) 0%, transparent 100%);
+}
+/* Submenu styling for new sidebar */
+.submenu {
+    background: rgba(15, 23, 42, 0.5);
+    border-radius: 8px;
+    margin: 4px 0 8px 38px;
+    padding: 6px 0;
+}
+.submenu li a {
+    display: block;
+    padding: 8px 14px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 13px;
+    border-radius: 6px;
+    margin: 2px 8px;
+    transition: all 0.2s ease;
+}
+.submenu li a:hover {
+    color: #fff;
+    background: rgba(99, 102, 241, 0.15);
+}
+.submenu-toggle {
+    cursor: pointer;
+}
+.arrow {
+    margin-left: auto;
+    font-size: 10px;
+    transition: transform 0.3s ease;
+}
+.has-submenu.open .arrow {
+    transform: rotate(180deg);
+}
+/* Collapsed sidebar adjustments for new styles */
+.sidebar.collapsed .sidebar-section {
+    padding: 0 8px;
+}
+.sidebar.collapsed .section-title {
+    display: none;
+}
+.sidebar.collapsed .nav-text {
+    display: none;
+}
+.sidebar.collapsed .nav-link {
+    justify-content: center;
+    padding: 12px;
+}
+.sidebar.collapsed .nav-icon {
+    margin: 0;
+}
+.sidebar.collapsed .arrow {
+    display: none;
+}

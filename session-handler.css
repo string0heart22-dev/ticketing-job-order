@@ -1,0 +1,116 @@
+/**
+ * Session Handler Stylesalert
+ * Styles for session notifications and warnings
+ */
+
+/* Session Notification Container */
+.spa-session-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    max-width: 400px;
+    min-width: 300px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.3s ease-in-out;
+}
+
+.spa-session-notification.spa-notification-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Notification Content */
+.spa-notification-content {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    gap: 12px;
+}
+
+/* Notification Icon */
+.spa-notification-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+/* Notification Message */
+.spa-notification-message {
+    flex: 1;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+}
+
+/* Close Button */
+.spa-notification-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    line-height: 1;
+    color: #999;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    transition: color 0.2s;
+}
+
+.spa-notification-close:hover {
+    color: #333;
+}
+
+/* Notification Types */
+.spa-notification-info {
+    border-left: 4px solid #2196F3;
+}
+
+.spa-notification-warning {
+    border-left: 4px solid #FF9800;
+    background: #FFF8E1;
+}
+
+.spa-notification-error {
+    border-left: 4px solid #F44336;
+    background: #FFEBEE;
+}
+
+.spa-notification-success {
+    border-left: 4px solid #4CAF50;
+    background: #E8F5E9;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .spa-session-notification {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        max-width: none;
+        min-width: 0;
+    }
+    
+    .spa-notification-content {
+        padding: 12px;
+    }
+    
+    .spa-notification-message {
+        font-size: 13px;
+    }
+}
+
+/* Animation for multiple notifications */
+.spa-session-notification:nth-child(n+2) {
+    top: calc(20px + (80px * (var(--notification-index, 0))));
+}
+
+@media (max-width: 768px) {
+    .spa-session-notification:nth-child(n+2) {
+        top: calc(10px + (70px * (var(--notification-index, 0))));
+    }
+}

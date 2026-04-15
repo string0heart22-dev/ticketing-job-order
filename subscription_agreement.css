@@ -1,0 +1,220 @@
+ * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .header img {
+            width: 120px;
+            margin-bottom: 10px;
+        }
+        
+        .header h2 {
+            font-size: 14px;
+            margin: 5px 0;
+        }
+        
+        .form-section {
+            margin-bottom: 20px;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .form-group {
+            flex: 1;
+        }
+        
+        label {
+            display: block;
+            font-weight: bold;
+            font-size: 12px;
+            margin-bottom: 3px;
+        }
+       
+
+        input{
+            border-style: hidden;
+            height: 20px;
+            
+        }
+        .input[type="other-details"]{
+            min-width: 2px;
+
+        }
+
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            font-size: 12px;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 5px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .checkbox-item input[type="checkbox"] {
+            width: auto;
+        }
+        
+        .checkbox-item label {
+            font-weight: normal;
+            margin: 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0% 0;
+            text-wrap: inherit;
+        }
+        
+        table td, table th {
+            border: 1px solid #000;
+            padding: 8px;
+            font-size: 11px;
+        }
+        
+        table th {
+            background: #f0f0f0;
+            font-weight: bold;
+        }
+        
+        .terms {
+            font-size: 10px;
+            line-height: 1.6;
+            margin: 15px 0;
+        }
+        
+        .terms ol {
+            margin-left: 20px;
+        }
+        
+        .terms li {
+            margin-bottom: 10px;
+        }
+        
+        .signature-section {
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .signature-box {
+            width: 48%;
+        }
+        
+        .signature-line {
+            border-bottom: 1px solid #000;
+            margin-top: 40px;
+            padding-bottom: 5px;
+        }
+        
+        .btn-print {
+            background: #e74c3c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+        
+        .btn-print:hover {
+            background: #c0392b;
+        }
+        
+        @media print {
+            body {
+                padding: 0;
+                background: white;
+            }
+            
+            .container {
+                box-shadow: none;
+                padding: 0;
+            }
+            
+            .btn-print {
+                display: none;
+            }
+        }
+        
+        .small-text {
+            font-size: 10px;
+        }
+        
+        .plan-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        
+
+
+/* Signature button */
+.btn-signature {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-signature:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+#signature-image {
+    background: transparent !important;
+    border: none !important;
+    display: block;
+}
+
+@media print {
+    .btn-signature {
+        display: none;
+    }
+    
+    #signature-image {
+        display: block !important;
+    }
+}

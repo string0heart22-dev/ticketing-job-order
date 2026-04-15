@@ -1,0 +1,739 @@
+/*
+ * mobile.css — Global mobile overrides for all admin pages
+ * Targets: Vivo V30 and similar (~390–430px CSS width)
+ * Include after all other stylesheets on every page.
+ */
+
+/* ── Topbar ──────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+    .topbar {
+        padding: 0 8px;
+        gap: 6px;
+    }
+
+    /* Logo image styling for mobile */
+    .topbar .logo-container .logo {
+        width: 90px;
+        height: 30px;
+        object-fit: contain;
+    }
+
+    /* Hide text, show logo image instead */
+    .topbar .logo-container span {
+        display: none !important;
+    }
+
+    /* Gap between logo and the controls (Staff Status / avatar) */
+    .topbar .controls {
+        margin-left: auto;
+        gap: 6px !important;
+    }
+
+    .topbar .logo-container {
+        margin-right: 8px;
+        flex-shrink: 1;
+        min-width: 0;
+        overflow: hidden;
+    }
+
+    /* Hide user name/role text, keep avatar */
+    .user-info { display: none !important; }
+    .user-profile { padding: 4px 6px !important; }
+
+    /* Presence menu button — icon only */
+    .presence-menu-btn span:not(.presence-dot) { display: none; }
+    .presence-menu-btn { padding: 6px 8px !important; gap: 4px !important; }
+    .presence-dropdown { right: 0; min-width: 240px; }
+    
+    /* Night mode button */
+    .btn-night {
+        width: 32px !important;
+        height: 32px !important;
+        padding: 0 !important;
+    }
+    
+    /* Notification bell */
+    .notification-bell {
+        width: 32px !important;
+        height: 32px !important;
+    }
+}
+
+/* ── Sidebar ─────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+    :root { --sidebar-width: 260px; }
+
+    .sidebar nav a,
+    .sidebar nav button { padding: 13px 10px; font-size: 0.9rem; min-height: 44px; }
+}
+
+/* ── Main content ────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+    .main {
+        padding: 10px !important;
+        padding-top: calc(var(--navbar-height) + 10px) !important;
+    }
+
+    .page-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 10px !important;
+    }
+
+    .page-header-right {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .page-header-right button,
+    .page-header-right a {
+        flex: 1;
+        min-width: 120px;
+        justify-content: center;
+    }
+}
+
+/* ── Tables — horizontal scroll + readable on mobile ─────────────────── */
+@media (max-width: 768px) {
+    .table-container,
+    .users-table-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 10px;
+    }
+
+    .tickets-table,
+    .users-table {
+        min-width: 600px; /* force scroll rather than squish */
+    }
+
+    .tickets-table th,
+    .tickets-table td,
+    .users-table th,
+    .users-table td {
+        padding: 10px 10px !important;
+        font-size: 0.8rem !important;
+        white-space: nowrap;
+    }
+
+    /* Hide less-critical columns on small screens */
+    .tickets-table .col-hide-mobile,
+    .users-table .col-hide-mobile { display: none; }
+}
+
+/* ── Modals ──────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+    .modal-content {
+        width: 96% !important;
+        margin: 2% auto !important;
+        padding: 20px 16px !important;
+        border-radius: 12px !important;
+        max-height: 92vh;
+        overflow-y: auto;
+    }
+
+    .modal-large {
+        width: 96% !important;
+        padding: 16px !important;
+    }
+
+    /* Form rows stack on mobile */
+    .form-row,
+    #edit-ticket-modal .form-row,
+    #create-ticket-modal .form-row,
+    .technical-form .form-row {
+        grid-template-columns: 1fr !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 12px !important;
+    }
+
+    .form-actions {
+        flex-direction: column !important;
+        gap: 10px !important;
+    }
+
+    .form-actions button,
+    .form-actions a {
+        width: 100% !important;
+        text-align: center;
+    }
+
+    /* Inputs — prevent iOS zoom (font-size must be ≥16px) */
+    input, select, textarea {
+        font-size: 16px !important;
+    }
+}
+
+/* ── Filters bar ─────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .filters-bar {
+        flex-direction: column !important;
+        gap: 12px !important;
+        padding: 14px !important;
+    }
+
+    .filter-group,
+    .search-group { width: 100% !important; }
+
+    .filter-select,
+    .search-input { width: 100% !important; min-width: unset !important; }
+}
+
+/* ── Status / filter tabs ────────────────────────────────────────────── */
+@media (max-width: 600px) {
+    .status-tabs,
+    .filter-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px !important;
+    }
+
+    .tab-btn,
+    .btn-filter {
+        flex: 1;
+        min-width: 80px;
+        font-size: 0.78rem !important;
+        padding: 7px 8px !important;
+        text-align: center;
+    }
+}
+
+/* ── Reports summary cards ───────────────────────────────────────────── */
+@media (max-width: 600px) {
+    .report-summary {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 10px !important;
+    }
+
+    .summary-card { padding: 14px !important; }
+    .summary-card .value { font-size: 1.5rem !important; }
+}
+
+/* ── Installation form ───────────────────────────────────────────────── */
+@media (max-width: 600px) {
+    .installation-form {
+        padding: 12px !important;
+        margin: 8px auto !important;
+    }
+
+    .form-section { padding: 12px !important; }
+}
+
+/* ── Users page ──────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+    .users-toolbar {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+
+    .search-box { min-width: unset !important; }
+
+    .btn-bulk-delete,
+    .btn-add-user { width: 100% !important; justify-content: center !important; }
+
+    /* Hide email column on very small screens */
+    .users-table .user-email { display: none; }
+    .users-table .col-actions { white-space: nowrap; }
+}
+
+/* ── Presence dropdown ───────────────────────────────────────────────── */
+@media (max-width: 600px) {
+    .presence-dropdown {
+        position: fixed !important;
+        top: var(--navbar-height, 56px) !important;
+        right: -4px !important;
+        width: calc(100vw - 16px) !important;
+        min-width: unset !important;
+        max-height: 65vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+        border-radius: 10px;
+        z-index: 9000 !important;
+        box-sizing: border-box !important;
+    }
+
+    .presence-dropdown-header {
+        font-size: 12px !important;
+        padding: 12px 16px 10px !important;
+        white-space: nowrap !important;
+    }
+
+    .presence-item {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        padding: 10px 14px !important;
+        gap: 10px !important;
+        box-sizing: border-box !important;
+        width: 100% !important;
+    }
+
+    .presence-avatar {
+        width: 32px !important;
+        height: 32px !important;
+        min-width: 32px !important;
+        font-size: 13px !important;
+        flex-shrink: 0 !important;
+    }
+
+    .presence-info {
+        flex: 1 1 auto !important;
+        min-width: 0 !important;
+        width: 0 !important; /* force flex to calculate properly */
+    }
+
+    .presence-name {
+        font-size: 13px !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        word-break: normal !important;
+        display: block !important;
+        width: 100% !important;
+    }
+
+    .presence-time {
+        font-size: 11px !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        display: block !important;
+    }
+
+    .presence-status-badge {
+        font-size: 11px !important;
+        padding: 3px 8px !important;
+        white-space: nowrap !important;
+        flex-shrink: 0 !important;
+    }
+}
+
+/* ── Gate overlay ────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+    #gate-overlay > div {
+        padding: 24px 18px !important;
+        margin: 12px !important;
+        width: calc(100% - 24px) !important;
+        max-width: unset !important;
+    }
+}
+
+/* ── Touch targets — all interactive elements ≥44px ─────────────────── */
+@media (hover: none) and (pointer: coarse) {
+    button, a, select, input[type="checkbox"], input[type="radio"] {
+        min-height: 44px;
+    }
+
+    .btn-action,
+    .btn-edit,
+    .btn-delete,
+    .btn-assign,
+    .btn-filter,
+    .tab-btn {
+        min-height: 40px;
+        padding-top: 8px !important;
+        padding-bottom: 8px !important;
+    }
+
+    /* Checkboxes bigger on touch */
+    input[type="checkbox"] {
+        width: 20px !important;
+        height: 20px !important;
+        min-height: 20px;
+    }
+}
+
+/* ── Prevent horizontal overflow on body ────────────────────────────── */
+@media (max-width: 600px) {
+    body { overflow-x: hidden; }
+}
+
+/* ── Service Plans table ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .plans-table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        min-width: 600px;
+        width: 100%;
+    }
+
+    /* Wrap the table in a scrollable container */
+    .plans-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 10px !important;
+    }
+
+    .plans-header h1 {
+        font-size: 1.1rem !important;
+    }
+
+    .plans-header > div {
+        width: 100%;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .plans-header .add-plan-btn,
+    .plans-header .delete-btn {
+        flex: 1;
+        min-width: 120px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 600px) {
+    /* Wrap plans table in scroll container */
+    .main > .plans-header + table,
+    .plans-table {
+        font-size: 0.8rem !important;
+    }
+
+    .plans-table th,
+    .plans-table td {
+        padding: 8px 10px !important;
+        white-space: nowrap;
+    }
+}
+
+/* ── Service Areas table ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    /* The table-container wrapper already has overflow-x:auto from generic rules,
+       but service_areas uses .tickets-table inside .table-container so it's covered.
+       Extra: make action buttons stack-friendly */
+    /* Service areas action buttons — column stacked */
+    .action-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .action-buttons .btn-edit,
+    .action-buttons .btn-delete {
+        width: 100%;
+        text-align: center;
+        font-size: 0.75rem !important;
+        padding: 5px 8px !important;
+    }
+
+    /* Override: tickets table action buttons must stay horizontal */
+    .tickets-table .action-buttons {
+        flex-direction: row !important;
+        width: auto !important;
+    }
+    .tickets-table .action-buttons .btn-edit,
+    .tickets-table .action-buttons .btn-delete {
+        width: auto !important;
+    }
+}
+
+@media (max-width: 600px) {
+    /* Actions bar on service areas */
+    .actions-bar {
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+    }
+
+    .actions-bar button {
+        flex: 1;
+        min-width: 120px;
+        text-align: center;
+        font-size: 0.8rem !important;
+    }
+}
+
+/* ── Ticket Table → Card layout on mobile ────────────────────────────── */
+/*
+ * Column map (tickets.php) — 10 columns:
+ *   td:nth-child(1)  = checkbox
+ *   td:nth-child(2)  = ticket number (.ticket-number)
+ *   td:nth-child(3)  = client name
+ *   td:nth-child(4)  = address
+ *   td:nth-child(5)  = contact
+ *   td:nth-child(6)  = info/service
+ *   td:nth-child(7)  = assigned name
+ *   td:nth-child(8)  = created_at
+ *   td:nth-child(9)  = details (priority + status badge)
+ *   td:nth-child(10) = .td-actions (.action-buttons) — LAST
+ */
+@media (max-width: 600px) {
+
+    .tickets-table thead { display: none !important; }
+
+    .tickets-table,
+    .tickets-table tbody {
+        display: block !important;
+        width: 100% !important;
+        min-width: unset !important;
+    }
+
+    /* Each row = card */
+    .tickets-table tbody tr {
+        display: block !important;
+        background: #fff;
+        border-radius: 12px;
+        border: 1.5px solid #e5e7eb;
+        margin-bottom: 12px;
+        padding: 14px 16px 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .tickets-table tbody tr[data-type="installation"] { border-left: 4px solid #1f2937; }
+    .tickets-table tbody tr[data-type="maintenance"]  { border-left: 4px solid #f59e0b; }
+    .tickets-table tbody tr[data-type="pullout"]      { border-left: 4px solid #ef4444; }
+
+    /* Hide all cells by default */
+    .tickets-table tbody tr td {
+        display: none !important;
+        border: none !important;
+        padding: 0 !important;
+        font-size: 0.875rem !important;
+        white-space: normal !important;
+    }
+
+    /* col 1 = checkbox — hidden */
+    .tickets-table tbody tr td:nth-child(1) { display: none !important; }
+
+    /* col 2 = ticket number — card title */
+    .tickets-table tbody tr td:nth-child(2) {
+        display: block !important;
+        font-weight: 800;
+        font-size: 1rem !important;
+        color: #1f2937;
+        font-family: 'Courier New', monospace;
+        margin-bottom: 10px;
+    }
+
+    /* col 3 = client name */
+    .tickets-table tbody tr td:nth-child(3) {
+        display: flex !important;
+        gap: 8px;
+        margin-bottom: 4px;
+        align-items: baseline;
+    }
+    .tickets-table tbody tr td:nth-child(3)::before {
+        content: 'Client';
+        color: #9ca3af;
+        font-weight: 500;
+        min-width: 64px;
+        flex-shrink: 0;
+    }
+
+    /* col 4 = address */
+    .tickets-table tbody tr td:nth-child(4) {
+        display: flex !important;
+        gap: 8px;
+        margin-bottom: 4px;
+        align-items: baseline;
+    }
+    .tickets-table tbody tr td:nth-child(4)::before {
+        content: 'Address';
+        color: #9ca3af;
+        font-weight: 500;
+        min-width: 64px;
+        flex-shrink: 0;
+    }
+
+    /* col 5 = contact */
+    .tickets-table tbody tr td:nth-child(5) {
+        display: flex !important;
+        gap: 8px;
+        margin-bottom: 4px;
+        align-items: baseline;
+    }
+    .tickets-table tbody tr td:nth-child(5)::before {
+        content: 'Contact';
+        color: #9ca3af;
+        font-weight: 500;
+        min-width: 64px;
+        flex-shrink: 0;
+    }
+
+    /* col 6 = service/info */
+    .tickets-table tbody tr td:nth-child(6) {
+        display: flex !important;
+        gap: 8px;
+        margin-bottom: 10px;
+        align-items: baseline;
+    }
+    .tickets-table tbody tr td:nth-child(6)::before {
+        content: 'Service';
+        color: #9ca3af;
+        font-weight: 500;
+        min-width: 64px;
+        flex-shrink: 0;
+    }
+
+    /* col 7 = assigned — hidden */
+    .tickets-table tbody tr td:nth-child(7) { display: none !important; }
+
+    /* col 8 = created_at — hidden */
+    .tickets-table tbody tr td:nth-child(8) { display: none !important; }
+
+    /* details cell (priority + status badge) — targeted by class */
+    .tickets-table tbody tr td.details-column,
+    .tickets-table tbody tr td:nth-child(9):not(.td-actions) {
+        display: flex !important;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        border-top: 1px solid #f3f4f6;
+        padding-top: 10px !important;
+        margin-top: 4px;
+        margin-bottom: 8px;
+    }
+
+    /* Flatten detail-item divs so badges sit side by side */
+    .tickets-table tbody tr td.details-column .detail-item,
+    .tickets-table tbody tr td.details-column > div {
+        display: contents !important;
+    }
+
+    /* Hide status select on mobile — show badge only */
+    .tickets-table tbody tr td.details-column .status-select { display: none !important; }
+
+    /* col 10 = actions — horizontal row at bottom */
+    .tickets-table tbody tr td:nth-child(10),
+    .tickets-table tbody tr td.td-actions {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 8px !important;
+        flex-wrap: nowrap !important;
+        align-items: stretch !important;
+        border-top: 1px solid #f3f4f6;
+        padding-top: 10px !important;
+        margin-top: 2px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .tickets-table tbody tr td:nth-child(10) .action-buttons,
+    .tickets-table tbody tr td.td-actions .action-buttons {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 8px !important;
+        width: 100% !important;
+        flex: 1 !important;
+    }
+
+    .tickets-table tbody tr td.td-actions .btn-assign,
+    .tickets-table tbody tr td.td-actions .btn-edit,
+    .tickets-table tbody tr td.td-actions .btn-delete {
+        flex: 1 !important;
+        padding: 8px 10px !important;
+        border-radius: 8px !important;
+        font-size: 0.8rem !important;
+        font-weight: 600 !important;
+        border: none !important;
+        cursor: pointer;
+        text-align: center;
+        min-height: 36px !important;
+        display: block !important;
+        min-width: 0 !important;
+    }
+
+    .tickets-table tbody tr td.td-actions .btn-assign { background: #0ea5e9 !important; color: #fff !important; }
+    .tickets-table tbody tr td.td-actions .btn-edit   { background: #6d28d9 !important; color: #fff !important; }
+    .tickets-table tbody tr td.td-actions .btn-delete { background: #ef4444 !important; color: #fff !important; }
+
+    .tickets-table .status-select { display: none !important; }
+
+    .table-container {
+        overflow-x: visible !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+        border-radius: 0 !important;
+        padding: 0 !important;
+    }
+}
+
+/* ── tickets_installation.php card layout (actions col moved to position 2) ── */
+/*
+ * Column map (tickets_installation.php) — 10 columns:
+ *   td:nth-child(1)  = checkbox
+ *   td:nth-child(2)  = .td-actions (actions) ← LEFT
+ *   td:nth-child(3)  = ticket number
+ *   td:nth-child(4)  = client name
+ *   td:nth-child(5)  = address
+ *   td:nth-child(6)  = contact
+ *   td:nth-child(7)  = plan
+ *   td:nth-child(8)  = service/connection
+ *   td:nth-child(9)  = created
+ *   td:nth-child(10) = details (priority + status)
+ */
+@media (max-width: 600px) {
+
+    /* Ticket number — card title (col 3) */
+    .tickets-table tbody tr td:nth-child(3) {
+        display: block !important;
+        font-weight: 800;
+        font-size: 1rem !important;
+        color: #1f2937;
+        font-family: 'Courier New', monospace;
+        margin-bottom: 10px;
+        order: -1;
+    }
+    /* Remove the col2 title override from generic rules for this page */
+    .tickets-table tbody tr td:nth-child(2).td-actions {
+        order: 10;
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 8px !important;
+        flex-wrap: nowrap !important;
+        align-items: stretch !important;
+        border-top: 1px solid #f3f4f6;
+        padding-top: 10px !important;
+        margin-top: 2px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .tickets-table tbody tr td:nth-child(2).td-actions .action-buttons {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 8px !important;
+        width: 100% !important;
+        flex: 1 !important;
+    }
+}
+
+/* ── Additional Mobile Styles for All Pages ─────────────────────────── */
+
+/* Generic styles for mobile */
+@media (max-width: 600px) {
+    /* Any table should be scrollable */
+    table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Common containers */
+    .container, .content, .wrapper {
+        padding: 10px !important;
+        max-width: 100% !important;
+    }
+    
+    /* Prevent zoom on inputs */
+    input, select, textarea, button {
+        font-size: 16px !important;
+    }
+    
+    /* Cards and panels */
+    .card, .panel, .box {
+        padding: 12px !important;
+        margin-bottom: 12px !important;
+    }
+    
+    /* Images responsive */
+    img {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+}

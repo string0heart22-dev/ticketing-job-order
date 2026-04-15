@@ -1,0 +1,120 @@
+2026-03-17 14:44:21 - Request received
+POST data: Array
+(
+    [ticket_id] => 19
+    [status] => Pending
+)
+
+Ticket ID: 19, Status: Pending
+SQL: UPDATE pullout_tickets SET status = ?, assigned_to = NULL, start_time = NULL, end_time = NULL, in_progress_time = NULL, closed_time = NULL, negative_time = NULL, reconnected_time = NULL WHERE id = ?
+Affected rows: 1
+---END REQUEST---
+
+2026-03-17 14:53:30 - Request received
+POST data: Array
+(
+    [ticket_id] => 19
+    [status] => In Progress
+)
+
+Ticket ID: 19, Status: In Progress
+SQL: UPDATE pullout_tickets SET status = ?, start_time = COALESCE(start_time, NOW()), in_progress_time = NOW() WHERE id = ?
+Affected rows: 1
+---END REQUEST---
+
+2026-03-17 14:53:33 - Request received
+POST data: Array
+(
+    [ticket_id] => 18
+    [status] => Pending
+)
+
+Ticket ID: 18, Status: Pending
+SQL: UPDATE pullout_tickets SET status = ?, assigned_to = NULL, start_time = NULL, end_time = NULL, in_progress_time = NULL, closed_time = NULL, negative_time = NULL, reconnected_time = NULL WHERE id = ?
+Affected rows: 1
+---END REQUEST---
+
+2026-03-17 14:55:00 - Request received
+POST data: Array
+(
+    [ticket_id] => 20
+    [status] => Pending
+)
+
+Ticket ID: 20, Status: Pending
+SQL: UPDATE pullout_tickets SET status = ?, assigned_to = NULL, start_time = NULL, end_time = NULL, in_progress_time = NULL, closed_time = NULL, negative_time = NULL, reconnected_time = NULL WHERE id = ?
+Affected rows: 1
+---END REQUEST---
+
+2026-03-17 14:55:31 - Request received
+POST data: Array
+(
+    [ticket_id] => 20
+    [status] => Pending
+)
+
+Ticket ID: 20, Status: Pending
+SQL: UPDATE pullout_tickets SET status = ?, assigned_to = NULL, start_time = NULL, end_time = NULL, in_progress_time = NULL, closed_time = NULL, negative_time = NULL, reconnected_time = NULL WHERE id = ?
+Affected rows: 1
+---END REQUEST---
+
+2026-03-18 10:09:09 - Request received
+POST data: Array
+(
+    [ticket_id] => 34
+    [status] => Pending
+)
+
+Ticket ID: 34, Status: Pending
+SQL: UPDATE pullout_tickets SET status = ?, assigned_to = NULL, start_time = NULL, end_time = NULL, in_progress_time = NULL, closed_time = NULL, negative_time = NULL, reconnected_time = NULL WHERE id = ?
+Affected rows: 1
+---END REQUEST---
+
+2026-03-23 16:39:08 - Request received
+POST data: Array
+(
+    [ticket_id] => 50
+    [status] => Closed
+)
+
+Ticket ID: 50, Status: Closed
+SQL: UPDATE pullout_tickets SET status = ?, end_time = NOW(), closed_time = NOW() WHERE id = ?
+Affected rows: 1
+---END REQUEST---
+
+2026-03-25 12:06:36 - Request received
+POST data: Array
+(
+    [ticket_id] => 52
+    [status] => In Progress
+)
+
+Ticket ID: 52, Status: In Progress
+SQL: UPDATE pullout_tickets SET status = ?, start_time = COALESCE(start_time, NOW()), in_progress_time = NOW() WHERE id = ?
+Affected rows: 1
+---END REQUEST---
+
+2026-04-01 14:38:02 - Request received
+POST data: Array
+(
+    [ticket_id] => 53
+    [status] => Closed
+)
+
+Ticket ID: 53, Status: Closed
+SQL: UPDATE pullout_tickets SET status = ?, end_time = NOW(), closed_time = NOW() WHERE id = ?
+Affected rows: 1
+---END REQUEST---
+
+2026-04-02 09:16:25 - Request received
+POST data: Array
+(
+    [ticket_id] => 53
+    [status] => Negative
+)
+
+Ticket ID: 53, Status: Negative
+SQL: UPDATE pullout_tickets SET status = ?, end_time = NOW(), negative_time = NOW(), completed_time = NOW() WHERE id = ?
+Affected rows: 1
+---END REQUEST---
+

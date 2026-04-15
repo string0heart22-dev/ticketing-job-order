@@ -1,0 +1,3855 @@
+/* Tickets Page Styles */
+
+.main h1 {
+    color: #1f2937;
+    margin-bottom: 20px;
+}
+
+.actions-bar {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-create-ticket {
+    padding: 8px 18px;
+    background: linear-gradient(80deg, #1b5ab3, #d60b0e);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-create-ticket:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(214, 11, 14, 0.3);
+}
+
+.table-container {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+}
+
+.tickets-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tickets-table thead {
+    background: linear-gradient(80deg, #1f2937, #d60b0e);
+    color: white;
+}
+
+/* Date column header alignment */
+#date-column-header {
+    text-align: center !important;
+    white-space: nowrap;
+}
+
+/* Created cell alignment */
+.created-cell {
+    text-align: center !important;
+    white-space: nowrap;
+}
+
+.created-cell small {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.tickets-table th {
+    color: white;
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.tickets-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 1rem;
+}
+
+.tickets-table tbody tr:hover {
+    opacity: 0.9;
+}
+
+/* Clickable Row Styles */
+.clickable-row {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.clickable-row:hover {
+    background-color: rgba(214, 11, 14, 0.05) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.clickable-row:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Row colors based on ticket type, status, and priority */
+
+/* PENDING + Normal/Less Priority + Pull Out = PINK (including last child) */
+.tickets-table tbody tr[data-type="pullout"][data-status="Pending"]:not([data-priority="Urgent"]),
+.tickets-table tbody tr[data-type="Pullout"][data-status="Pending"]:not([data-priority="Urgent"]) {
+    background-color: #f9a8d4 !important;
+    color: #374151 !important;
+}
+
+/* PENDING + Normal/Less Priority + Maintenance = CYAN (including last child) */
+.tickets-table tbody tr[data-type="maintenance"][data-status="Pending"]:not([data-priority="Urgent"]),
+.tickets-table tbody tr[data-type="Maintenance"][data-status="Pending"]:not([data-priority="Urgent"]) {
+    background-color: skyblue!important;
+    color: #000000 !important;
+}
+
+/* PENDING + Normal/Less Priority + Installation = YELLOW (including last child) */
+.tickets-table tbody tr[data-type="installation"][data-status="Pending"]:not([data-priority="Urgent"]),
+.tickets-table tbody tr[data-type="Installation"][data-status="Pending"]:not([data-priority="Urgent"]) {
+    background-color: #fef08a !important;
+    color: #000000 !important;
+}
+
+/* IN PROGRESS = Light shade colors */
+.tickets-table tbody tr[data-type="installation"][data-status="In Progress"],
+.tickets-table tbody tr[data-type="Installation"][data-status="In Progress"] {
+    background-color: #fef9c3 !important;
+    color: #374151 !important;
+}
+
+.tickets-table tbody tr[data-type="maintenance"][data-status="In Progress"],
+.tickets-table tbody tr[data-type="Maintenance"][data-status="In Progress"] {
+    background-color: #bae6fd !important;
+    color: #374151 !important;
+}
+
+.tickets-table tbody tr[data-type="pullout"][data-status="In Progress"],
+.tickets-table tbody tr[data-type="Pullout"][data-status="In Progress"] {
+    background-color: #fbcfe8 !important;
+    color: #374151 !important;
+}
+
+/* Default type colors for other cases */
+.tickets-table tbody tr[data-type="installation"] {
+    background-color: #fef08a !important;
+    color: #374151 !important;
+}
+
+.tickets-table tbody tr[data-type="maintenance"] {
+    background-color: #93c5fd !important;
+    color: #000000 !important;
+}
+
+.tickets-table tbody tr[data-type="pullout"] {
+    background-color: #f9a8d4 !important;
+    color: #374151 !important;
+}
+
+/* Urgent priority - Dark RED (overrides all, easy on eyes) */
+.tickets-table tbody tr[data-priority="Urgent"] {
+    background-color: #991b1b !important;
+}
+
+.tickets-table tbody tr[data-priority="Urgent"] td {
+    color: white !important;
+}
+
+/* Urgent rows - ticket number white */
+.tickets-table tbody tr[data-priority="Urgent"] .ticket-number {
+    color: white !important;
+}
+
+/* URGENT + IN PROGRESS = Red (highest priority) */
+.tickets-table tbody tr[data-priority="Urgent"][data-status="In Progress"],
+.tickets-table tbody tr[data-priority="Urgent"][data-status="In Progress"] td {
+   background-color: #db4848 !important;
+    color: white !important;
+}
+
+/* Urgent + Completed/Closed/Cancelled/On Hold/Negative/Installed/Reconnected = White background, BLACK TEXT */
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Completed"] td,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Closed"] td,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Cancelled"] td,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="On Hold"] td,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Negative"] td,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Installed"] td,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Reconnected"] td {
+    color: #000000 !important;
+}
+
+/* Created time/date - black */
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Completed"] td small,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Closed"] td small,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Cancelled"] td small,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="On Hold"] td small,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Negative"] td small,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Installed"] td small,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Reconnected"] td small,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Completed"] td .created-date,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Closed"] td .created-date,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Cancelled"] td .created-date,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="On Hold"] td .created-date,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Negative"] td .created-date,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Installed"] td .created-date,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Reconnected"] td .created-date,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Completed"] td .created-time,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Closed"] td .created-time,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Cancelled"] td .created-time,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="On Hold"] td .created-time,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Negative"] td .created-time,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Installed"] td .created-time,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Reconnected"] td .created-time {
+    color: #000000 !important;
+}
+
+/* Service type - black */
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Completed"] td .service-type,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Closed"] td .service-type,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Cancelled"] td .service-type,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="On Hold"] td .service-type,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Negative"] td .service-type,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Installed"] td .service-type,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Reconnected"] td .service-type,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Completed"] td[data-label="Service Type"],
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Closed"] td[data-label="Service Type"],
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Cancelled"] td[data-label="Service Type"],
+.tickets-table tbody tr[data-priority="Urgent"][data-status="On Hold"] td[data-label="Service Type"],
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Negative"] td[data-label="Service Type"],
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Installed"] td[data-label="Service Type"],
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Reconnected"] td[data-label="Service Type"] {
+    color: #000000 !important;
+}
+
+/* Urgent completed - eye icon BLACK */
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Completed"] .btn-view,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Closed"] .btn-view,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Cancelled"] .btn-view,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="On Hold"] .btn-view,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Negative"] .btn-view,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Installed"] .btn-view,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Reconnected"] .btn-view {
+    filter: none !important;
+    -webkit-filter: none !important;
+}
+
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Completed"] .btn-view img,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Closed"] .btn-view img,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Cancelled"] .btn-view img,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="On Hold"] .btn-view img,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Negative"] .btn-view img,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Installed"] .btn-view img,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Reconnected"] .btn-view img {
+    filter: none !important;
+    -webkit-filter: none !important;
+}
+
+/* Urgent completed - action buttons visible on white background */
+tr[data-priority="Urgent"][data-status="Completed"] .ticket-cell-container .action-buttons .btn-assign,
+tr[data-priority="Urgent"][data-status="Completed"] .ticket-cell-container .action-buttons .btn-edit,
+tr[data-priority="Urgent"][data-status="Completed"] .ticket-cell-container .action-buttons .btn-delete,
+tr[data-priority="Urgent"][data-status="Closed"] .ticket-cell-container .action-buttons .btn-assign,
+tr[data-priority="Urgent"][data-status="Closed"] .ticket-cell-container .action-buttons .btn-edit,
+tr[data-priority="Urgent"][data-status="Closed"] .ticket-cell-container .action-buttons .btn-delete,
+tr[data-priority="Urgent"][data-status="Cancelled"] .ticket-cell-container .action-buttons .btn-assign,
+tr[data-priority="Urgent"][data-status="Cancelled"] .ticket-cell-container .action-buttons .btn-edit,
+tr[data-priority="Urgent"][data-status="Cancelled"] .ticket-cell-container .action-buttons .btn-delete,
+tr[data-priority="Urgent"][data-status="On Hold"] .ticket-cell-container .action-buttons .btn-assign,
+tr[data-priority="Urgent"][data-status="On Hold"] .ticket-cell-container .action-buttons .btn-edit,
+tr[data-priority="Urgent"][data-status="On Hold"] .ticket-cell-container .action-buttons .btn-delete,
+tr[data-priority="Urgent"][data-status="Negative"] .ticket-cell-container .action-buttons .btn-assign,
+tr[data-priority="Urgent"][data-status="Negative"] .ticket-cell-container .action-buttons .btn-edit,
+tr[data-priority="Urgent"][data-status="Negative"] .ticket-cell-container .action-buttons .btn-delete,
+tr[data-priority="Urgent"][data-status="Installed"] .ticket-cell-container .action-buttons .btn-assign,
+tr[data-priority="Urgent"][data-status="Installed"] .ticket-cell-container .action-buttons .btn-edit,
+tr[data-priority="Urgent"][data-status="Installed"] .ticket-cell-container .action-buttons .btn-delete,
+tr[data-priority="Urgent"][data-status="Reconnected"] .ticket-cell-container .action-buttons .btn-assign,
+tr[data-priority="Urgent"][data-status="Reconnected"] .ticket-cell-container .action-buttons .btn-edit,
+tr[data-priority="Urgent"][data-status="Reconnected"] .ticket-cell-container .action-buttons .btn-delete {
+    background: #4b5563 !important;
+    color: #fff !important;
+}
+
+/* Urgent completed - BLACK eye icon (no filter) */
+tr[data-priority="Urgent"][data-status="Completed"] .ticket-cell-container .action-buttons .btn-icon.btn-view,
+tr[data-priority="Urgent"][data-status="Closed"] .ticket-cell-container .action-buttons .btn-icon.btn-view,
+tr[data-priority="Urgent"][data-status="Cancelled"] .ticket-cell-container .action-buttons .btn-icon.btn-view,
+tr[data-priority="Urgent"][data-status="On Hold"] .ticket-cell-container .action-buttons .btn-icon.btn-view,
+tr[data-priority="Urgent"][data-status="Negative"] .ticket-cell-container .action-buttons .btn-icon.btn-view,
+tr[data-priority="Urgent"][data-status="Installed"] .ticket-cell-container .action-buttons .btn-icon.btn-view,
+tr[data-priority="Urgent"][data-status="Reconnected"] .ticket-cell-container .action-buttons .btn-icon.btn-view {
+    filter: none !important;
+}
+
+tr[data-priority="Urgent"][data-status="Completed"] .ticket-cell-container .action-buttons .btn-icon.btn-view svg,
+tr[data-priority="Urgent"][data-status="Closed"] .ticket-cell-container .action-buttons .btn-icon.btn-view svg,
+tr[data-priority="Urgent"][data-status="Cancelled"] .ticket-cell-container .action-buttons .btn-icon.btn-view svg,
+tr[data-priority="Urgent"][data-status="On Hold"] .ticket-cell-container .action-buttons .btn-icon.btn-view svg,
+tr[data-priority="Urgent"][data-status="Negative"] .ticket-cell-container .action-buttons .btn-icon.btn-view svg,
+tr[data-priority="Urgent"][data-status="Installed"] .ticket-cell-container .action-buttons .btn-icon.btn-view svg,
+tr[data-priority="Urgent"][data-status="Reconnected"] .ticket-cell-container .action-buttons .btn-icon.btn-view svg {
+    fill: black !important;
+}
+
+/* Completed, Closed, Cancelled, On Hold, Negative, Installed, Reconnected - White background, black text */
+.tickets-table tbody tr[data-status="Completed"],
+.tickets-table tbody tr[data-status="Closed"],
+.tickets-table tbody tr[data-status="Cancelled"],
+.tickets-table tbody tr[data-status="On Hold"],
+.tickets-table tbody tr[data-status="Negative"],
+.tickets-table tbody tr[data-status="Installed"],
+.tickets-table tbody tr[data-status="Reconnected"] {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+}
+
+/* Include last child (details cell) - white background, black text */
+.tickets-table tbody tr[data-status="Completed"] td:last-child,
+.tickets-table tbody tr[data-status="Closed"] td:last-child,
+.tickets-table tbody tr[data-status="Cancelled"] td:last-child,
+.tickets-table tbody tr[data-status="On Hold"] td:last-child,
+.tickets-table tbody tr[data-status="Negative"] td:last-child,
+.tickets-table tbody tr[data-status="Installed"] td:last-child,
+.tickets-table tbody tr[data-status="Reconnected"] td:last-child {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+}
+
+/* Small text black for these statuses */
+.tickets-table tbody tr[data-status="Completed"] td small,
+.tickets-table tbody tr[data-status="Closed"] td small,
+.tickets-table tbody tr[data-status="Cancelled"] td small,
+.tickets-table tbody tr[data-status="On Hold"] td small,
+.tickets-table tbody tr[data-status="Negative"] td small,
+.tickets-table tbody tr[data-status="Installed"] td small,
+.tickets-table tbody tr[data-status="Reconnected"] td small,
+.tickets-table tbody tr[data-status="Completed"] td:last-child small,
+.tickets-table tbody tr[data-status="Closed"] td:last-child small,
+.tickets-table tbody tr[data-status="Cancelled"] td:last-child small,
+.tickets-table tbody tr[data-status="On Hold"] td:last-child small,
+.tickets-table tbody tr[data-status="Negative"] td:last-child small,
+.tickets-table tbody tr[data-status="Installed"] td:last-child small,
+.tickets-table tbody tr[data-status="Reconnected"] td:last-child small {
+    color: #000000 !important;
+}
+
+/* Details cell white by default */
+.tickets-table tbody tr td:last-child {
+    background-color: #fff !important;
+    border-left: 1px solid #f1f5f9;
+}
+
+/* BUT for Pending/Progress/Urgent, make last child same color */
+.tickets-table tbody tr[data-status="Pending"]:not([data-priority="Urgent"]) td:last-child,
+.tickets-table tbody tr[data-status="In Progress"]:not([data-priority="Urgent"]) td:last-child,
+.tickets-table tbody tr[data-priority="Urgent"]:not([data-status="In Progress"]) td:last-child,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="In Progress"] td:last-child {
+    background-color: inherit !important;
+}
+
+/* Urgent priority - ensure white text including last child */
+.tickets-table tbody tr[data-priority="Urgent"]:not([data-status="In Progress"]) td:last-child {
+    color: white !important;
+}
+
+/* Low priority, Installed, Completed = White (with last child white) */
+.tickets-table tbody tr[data-priority="Less Priority"],
+.tickets-table tbody tr[data-status="Installed"],
+.tickets-table tbody tr[data-status="Completed"],
+.tickets-table tbody tr[data-status="Closed"],
+.tickets-table tbody tr[data-status="Reconnected"] {
+    background-color: #ffffff !important;
+}
+
+/* Default white for other statuses */
+.tickets-table tbody tr {
+    background-color: #ffffff;
+}
+
+.ticket-number {
+    font-weight: 600;
+    color: #d60b0e;
+    margin-bottom: 6px;
+}
+
+/* Ticket cell container */
+.ticket-cell-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+}
+
+.ticket-cell-container .ticket-number {
+    margin-bottom: 0;
+}
+
+/* Action buttons under ticket number */
+.ticket-cell-container .action-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+/* Action button colors matching row colors but darker */
+.ticket-cell-container .action-buttons .btn-assign,
+.ticket-cell-container .action-buttons .btn-edit,
+.ticket-cell-container .action-buttons .btn-delete {
+    padding: 6px;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0, 0, 0, 0.15);
+    color: inherit;
+    transition: all 0.2s ease;
+}
+
+/* Installation - darker yellow */
+tr[data-type="installation"] .ticket-cell-container .action-buttons .btn-assign,
+tr[data-type="installation"] .ticket-cell-container .action-buttons .btn-edit,
+tr[data-type="installation"] .ticket-cell-container .action-buttons .btn-delete,
+tr[data-type="Installation"] .ticket-cell-container .action-buttons .btn-assign,
+tr[data-type="Installation"] .ticket-cell-container .action-buttons .btn-edit,
+tr[data-type="Installation"] .ticket-cell-container .action-buttons .btn-delete {
+    background: #a16207 !important;
+    color: #fff !important;
+}
+
+/* Maintenance - darker blue */
+tr[data-type="maintenance"] .ticket-cell-container .action-buttons .btn-assign,
+tr[data-type="maintenance"] .ticket-cell-container .action-buttons .btn-edit,
+tr[data-type="maintenance"] .ticket-cell-container .action-buttons .btn-delete,
+tr[data-type="Maintenance"] .ticket-cell-container .action-buttons .btn-assign,
+tr[data-type="Maintenance"] .ticket-cell-container .action-buttons .btn-edit,
+tr[data-type="Maintenance"] .ticket-cell-container .action-buttons .btn-delete {
+    background: #1d4ed8 !important;
+    color: #fff !important;
+}
+
+/* Pull Out - darker pink */
+tr[data-type="pullout"] .ticket-cell-container .action-buttons .btn-assign,
+tr[data-type="pullout"] .ticket-cell-container .action-buttons .btn-edit,
+tr[data-type="pullout"] .ticket-cell-container .action-buttons .btn-delete,
+tr[data-type="Pullout"] .ticket-cell-container .action-buttons .btn-assign,
+tr[data-type="Pullout"] .ticket-cell-container .action-buttons .btn-edit,
+tr[data-type="Pullout"] .ticket-cell-container .action-buttons .btn-delete {
+    background: #9d174d !important;
+    color: #fff !important;
+}
+
+/* Urgent - darker red */
+tr[data-priority="Urgent"] .ticket-cell-container .action-buttons .btn-assign,
+tr[data-priority="Urgent"] .ticket-cell-container .action-buttons .btn-edit,
+tr[data-priority="Urgent"] .ticket-cell-container .action-buttons .btn-delete {
+    background: #7f1d1d !important;
+    color: #fff !important;
+}
+
+/* Hover effects */
+.ticket-cell-container .action-buttons .btn-assign:hover,
+.ticket-cell-container .action-buttons .btn-edit:hover,
+.ticket-cell-container .action-buttons .btn-delete:hover {
+    transform: scale(1.1);
+    filter: brightness(0.85);
+}
+
+/* Make eye icon visible on dark colored action buttons - invert to white */
+tr[data-type="installation"] .ticket-cell-container .action-buttons .btn-view,
+tr[data-type="Installation"] .ticket-cell-container .action-buttons .btn-view,
+tr[data-type="maintenance"] .ticket-cell-container .action-buttons .btn-view,
+tr[data-type="Maintenance"] .ticket-cell-container .action-buttons .btn-view,
+tr[data-type="pullout"] .ticket-cell-container .action-buttons .btn-view,
+tr[data-type="Pullout"] .ticket-cell-container .action-buttons .btn-view,
+tr[data-priority="Urgent"] .ticket-cell-container .action-buttons .btn-view {
+    filter: invert(1) !important;
+}
+
+/* Increase eye icon size */
+.ticket-cell-container .action-buttons .btn-view img {
+    width: 24px !important;
+    height: 24px !important;
+}
+
+/* Urgent + Completed/Closed/Cancelled/On Hold/Negative/Installed/Reconnected = LIGHTER RED background, white text */
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Completed"],
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Closed"],
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Cancelled"],
+.tickets-table tbody tr[data-priority="Urgent"][data-status="On Hold"],
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Negative"],
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Installed"],
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Reconnected"] {
+    background-color: #fecaca !important;
+    color: #130404 !important;
+}
+
+/* All cells in urgent completed rows - white text on lighter red */
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Completed"] td,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Closed"] td,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Cancelled"] td,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="On Hold"] td,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Negative"] td,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Installed"] td,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Reconnected"] td {
+    color: #130808 !important;
+}
+
+/* Last child for urgent completed - lighter red background, white text */
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Completed"] td:last-child,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Closed"] td:last-child,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Cancelled"] td:last-child,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="On Hold"] td:last-child,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Negative"] td:last-child,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Installed"] td:last-child,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Reconnected"] td:last-child {
+    background-color: #fecaca !important;
+    color: #070404 !important;
+}
+
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Completed"] td:last-child small,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Closed"] td:last-child small,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Cancelled"] td:last-child small,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="On Hold"] td:last-child small,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Negative"] td:last-child small,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Installed"] td:last-child small,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Reconnected"] td:last-child {
+    background-color: #fecaca !important;
+    color: #070404 !important;
+}
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Completed"] td:last-child .created-date .created-time,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Closed"] td:last-child .created-date .created-time,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Cancelled"] td:last-child .created-date .created-time,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="On Hold"] td:last-child .created-date .created-time,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Negative"] td:last-child .created-date .created-time,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Installed"] td:last-child .created-date .created-time,
+.tickets-table tbody tr[data-priority="Urgent"][data-status="Reconnected"] td:last-child .created-date .created-time {
+    background-color: #fecaca !important;
+    color: #070404 !important;
+}
+.status-select {
+    padding: 6px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    background: white;
+}
+
+.status-select option[value="Pending"] {
+    background: #fef3c7;
+}
+
+.status-select option[value="Installed"] {
+    background: #d1fae5;
+}
+
+.status-select option[value="Cancelled"] {
+    background: #fee2e2;
+}
+
+.status-select option[value="Negative"] {
+    background: #fecaca;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 12px;
+    padding: 4px 8px;
+    background: transparent;
+    max-width: 160px;
+    
+    /* FIX: Move these here so they don't "trigger" on hover */
+    position: relative; 
+    z-index: 1;
+    
+    /* Optimization: Only transition the things that change */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, filter 0.3s ease;
+}
+
+.action-buttons:hover {
+    transform: translateY(-8px) scale(1.15); 
+    box-shadow: 0 15px 35px 5px rgba(0, 128, 128, 0.7);
+    border-color: #00e5e5;
+    filter: brightness(1.2);
+    
+    /* Higher z-index on hover is fine, as long as position: relative was already there */
+    z-index: 10; 
+}
+
+/* Icon Buttons */
+.btn-icon {
+    background: transparent;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    width: 24px;
+    height: 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-icon::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.05);
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+}
+
+.btn-icon:hover {
+    transform: scale(1.2);
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-icon:hover::before {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+}
+
+.btn-icon:active {
+    transform: scale(0.95);
+}
+
+.btn-icon.btn-view,
+.btn-icon.btn-view:hover {
+    background: transparent !important;
+    background-image: none !important;
+    width: 28px;
+    height: 28px;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    overflow: hidden;
+}
+
+.btn-icon.btn-view svg {
+    width: 50px;
+    height: 50px;
+    display: block;
+}
+
+/* Hide any pseudo-elements */
+.btn-icon.btn-view::before,
+.btn-icon.btn-view:hover::before,
+.btn-icon.btn-view::after,
+.btn-icon.btn-view:hover::after {
+    display: none !important;
+    content: none !important;
+}
+
+.btn-icon.btn-view:hover {
+    /* 4. This grows the eye ONLY visually. Neighbors will NOT move. */
+    transform: scale(1.4) translateY(-2px); 
+    
+    filter: grayscale(0%);
+    border-color: #059669; /* Matches your green theme */
+    background-color: transparent;
+    
+    /* 5. Float on top of neighbors */
+    z-index: 10; 
+}
+
+/* Ensure eye bite (pupil cutout) is always visible - fix inverted colors */
+.btn-icon.btn-view svg mask circle {
+    fill: black !important;
+}
+
+/* On urgent rows, don't invert the SVG - keep original colors */
+tr[data-priority="Urgent"] .btn-icon.btn-view svg,
+tr[data-priority="urgent"] .btn-icon.btn-view svg {
+    filter: none !important;
+    -webkit-filter: none !important;
+}
+
+/* White eye icon on urgent rows - but preserve bite visibility */
+tr[data-priority="Urgent"] .btn-icon.btn-view,
+tr[data-priority="urgent"] .btn-icon.btn-view {
+    filter: brightness(0) invert(1) !important;
+}
+
+/* Override to ensure SVG doesn't get inverted */
+tr[data-priority="Urgent"] .btn-icon.btn-view svg *,
+tr[data-priority="urgent"] .btn-icon.btn-view svg * {
+    filter: none !important;
+    -webkit-filter: none !important;
+}
+
+.btn-icon.btn-assign {
+    background-image: url('person-plus.png') !important;
+    background-size: 18px 18px !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    font-size: 0 !important;
+    color: transparent !important;
+    border: 2px solid white !important;
+    background-color: white !important;
+}
+
+.btn-icon.btn-assign:hover {
+    background-image: url('person-plus.png') !important;
+ /* 4. This grows the eye ONLY visually. Neighbors will NOT move. */
+    transform: scale(1.4) translateY(-2px); 
+    
+    
+    border-color: #059669; /* Matches your green theme */
+    background-color: transparent;
+    
+    /* 5. Float on top of neighbors */
+    z-index: 10; 
+}
+
+.btn-delete {
+    color: white !important;
+    border: 1px solid #f87171 !important;
+    background: linear-gradient(135deg, #dc2626, #991b1b) !important;
+}
+
+.btn-delete:hover {
+     /* 4. This grows the eye ONLY visually. Neighbors will NOT move. */
+    transform: scale(1.4) translateY(-2px); 
+    
+    filter: grayscale(0%);
+    border-color: #059669; /* Matches your green theme */
+    background-color: transparent;
+    
+    /* 5. Float on top of neighbors */
+    z-index: 10; 
+}
+
+.btn-edit,
+.btn-delete,
+.btn-assign {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-edit {
+   background: linear-gradient(135deg, #6389f1, #1b051b);
+    color: white;
+}
+
+.btn-edit:hover {
+    background: #2563eb;
+}
+
+.no-data {
+    text-align: center;
+    padding: 40px;
+    color: #6b7280;
+    font-style: italic;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+.modal.active {
+    display: block;
+}
+
+.modal-content {
+    position: relative;
+    background: white;
+    margin: 3% auto;
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    animation: slideDown 0.3s ease-in-out;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.close-btn {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #6b7280;
+    background: none;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+}
+
+.close-btn:hover {
+    color: #d60b0e;
+}
+
+.modal-content h2 {
+    margin: 0 0 20px 0;
+    color: #1f2937;
+    font-size: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #374151;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.required {
+    color: #d60b0e;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #d60b0e;
+    box-shadow: 0 0 0 3px rgba(214, 11, 14, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.form-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 2px solid #e5e7eb;
+}
+
+.btn-submit,
+.btn-cancel {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-submit {
+    background: linear-gradient(80deg, #1f2937, #d60b0e);
+    color: white;
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(214, 11, 14, 0.3);
+}
+
+.btn-cancel {
+    background: #6b7280;
+    color: white;
+}
+
+.btn-cancel:hover {
+    background: #4b5563;
+}
+
+.ticket-info {
+    background: #f3f4f6;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    color: #1f2937;
+    font-weight: 500;
+}
+
+/* Alert Messages */
+.alert {
+    padding: 15px 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .tickets-table {
+        font-size: 0.85rem;
+    }
+    
+    .tickets-table th,
+    .tickets-table td {
+        padding: 8px;
+    }
+    
+    .action-buttons:not(td .action-buttons) {
+        flex-direction: column;
+    }
+    
+    .modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .btn-submit,
+    .btn-cancel {
+        width: 100%;
+    }
+}
+
+
+/* Priority Badges */
+.priority-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+}
+
+.priority-urgent {
+    background: #fee2e2;
+    color: #b91c1c;
+    border: 1px solid #fca5a5;
+    font-weight: 700;
+}
+
+.priority-normal {
+    background: #dbeafe;
+    color: #1e40af;
+    border: 1px solid #93c5fd;
+}
+
+.priority-low {
+    background: #f3f4f6;
+    color: #4b5563;
+    border: 1px solid #d1d5db;
+}
+
+.description-cell {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* Edit Ticket Modal Specific Styles */
+#edit-ticket-modal .modal-content,
+#create-ticket-modal .modal-content {
+    max-width: 900px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+#edit-ticket-modal .form-section,
+#create-ticket-modal .form-section {
+    margin-bottom: 25px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+}
+
+#edit-ticket-modal .form-section h3,
+#create-ticket-modal .form-section h3 {
+    margin: 0 0 15px 0;
+    color: #1f2937;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-bottom: 2px solid rgba(214, 11, 14, 0.3);
+    padding-bottom: 8px;
+}
+
+#edit-ticket-modal .form-row,
+#create-ticket-modal .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+#edit-ticket-modal .form-group.full-width,
+#create-ticket-modal .form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+@media (max-width: 768px) {
+    #edit-ticket-modal .form-row,
+    #create-ticket-modal .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    #edit-ticket-modal .modal-content,
+    #create-ticket-modal .modal-content {
+        width: 95%;
+        margin: 2% auto;
+    }
+}
+
+/* View Maintenance Modal Styles */
+.modal-large {
+    max-width: 1000px;
+    max-height: 90vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.details-section {
+    margin-bottom: 25px;
+    padding: 20px;
+    background: #f9fafb;
+    border-radius: 8px;
+    border-left: 4px solid #d60b0e;
+}
+
+.details-section h3 {
+    margin: 0 0 15px 0;
+    color: #1f2937;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-bottom: 2px solid #d60b0e;
+    padding-bottom: 8px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-item.full-width {
+    grid-column: 1 / -1;
+}
+
+.info-item label {
+    font-weight: 600;
+    color: #6b7280;
+    font-size: 0.85rem;
+    margin-bottom: 5px;
+}
+
+.info-item span {
+    color: #1f2937;
+    font-size: 0.95rem;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.status-pending {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.status-in-progress {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.status-completed {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.status-cancelled {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.status-on-hold {
+    background: #f3f4f6;
+    color: #4b5563;
+}
+
+.description-box,
+.notes-box,
+.feedback-box {
+    background: white;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #e5e7eb;
+    line-height: 1.6;
+    color: #374151;
+}
+
+.rating {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.star {
+    font-size: 1.5rem;
+    color: #d1d5db;
+}
+
+.star.filled {
+    color: #fbbf24;
+}
+
+/* Upload Form in Modal */
+.upload-form {
+    margin-bottom: 25px;
+}
+
+.upload-area {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+#modal-image-upload {
+    display: none;
+}
+
+.upload-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    border: 2px dashed #d1d5db;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.upload-label:hover {
+    border-color: #d60b0e;
+    background: #fef2f2;
+}
+
+.upload-icon {
+    font-size: 2.5rem;
+    margin-bottom: 8px;
+}
+
+.upload-hint {
+    font-size: 0.8rem;
+    color: #6b7280;
+    margin-top: 5px;
+}
+
+.preview-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.preview-item {
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.preview-item img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+}
+
+.preview-remove,
+.remove-preview {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.btn-upload {
+    padding: 10px 24px;
+    background: linear-gradient(80deg, #1f2937, #d60b0e);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-upload:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(214, 11, 14, 0.3);
+}
+
+.btn-upload:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Images Gallery in Modal */
+.images-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.gallery-item {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    background: #fff;
+}
+
+.gallery-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    cursor: pointer;
+    display: block;
+}
+
+.gallery-item .delete-image {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(220, 53, 69, 0.9);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+    z-index: 10;
+    opacity: 1;
+}
+
+.gallery-item .delete-image:hover {
+    background: rgba(220, 53, 69, 1);
+}
+
+/* Touch devices — bigger tap target, always fully visible */
+@media (hover: none), (pointer: coarse) {
+    .gallery-item .delete-image {
+        width: 36px;
+        height: 36px;
+        font-size: 22px;
+        opacity: 1;
+        background: rgba(220, 53, 69, 1);
+    }
+    .btn-delete-image {
+        width: 36px;
+        height: 36px;
+        font-size: 1.4rem;
+    }
+}
+
+.gallery-item .image-date {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    padding: 8px;
+    color: white;
+    font-size: 11px;
+    text-align: center;
+}
+
+.image-item {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.image-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.image-item img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.image-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    padding: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.image-date {
+    color: white;
+    font-size: 0.8rem;
+}
+
+.btn-delete-image {
+    background: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    font-size: 1.3rem;
+    line-height: 1;
+    transition: background 0.3s ease;
+}
+
+.btn-delete-image:hover {
+    background: #dc2626;
+}
+
+.no-images {
+    text-align: center;
+    color: #6b7280;
+    font-style: italic;
+    padding: 30px;
+    grid-column: 1 / -1;
+}
+
+/* Image Modal (Full Screen) */
+.image-modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    overflow: hidden;
+}
+
+.modal-image {
+    display: block;
+    max-width: 90vw;
+    max-height: 90vh;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transform-origin: center center;
+    transition: transform 0.1s ease;
+    cursor: zoom-in;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10001;
+}
+
+.close-modal:hover {
+    color: #d60b0e;
+}
+
+/* Responsive for View Modal */
+@media (max-width: 768px) {
+    .modal-large {
+        width: 95%;
+        margin: 2% auto;
+        padding: 20px;
+    }
+    
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .images-gallery {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+    
+    .preview-container {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+}
+
+/* All Tickets Page Styles */
+.filter-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.btn-filter {
+    padding: 8px 16px;
+    background: white;
+    color: #374151;
+    border: 2px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-filter:hover {
+    border-color: #d60b0e;
+    color: #d60b0e;
+}
+
+.btn-filter.active {
+    background: linear-gradient(80deg, #1f2937, #d60b0e);
+    color: white;
+    border-color: transparent;
+}
+
+.type-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.type-maintenance {
+    background: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fbbf24;
+}
+
+.type-installation {
+    background: #dbeafe;
+    color: #1e40af;
+    border: 1px solid #60a5fa;
+}
+
+.type-pullout {
+    background: #fed7aa;
+    color: #9a3412;
+    border: 1px solid #fb923c;
+}
+
+/* Status badges for all tickets page */
+.status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.status-pending {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.status-in-progress {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.status-installed {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.status-completed {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.status-cancelled {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.status-negative {
+    background: #fecaca;
+    color: #991b1b;
+}
+
+.status-on-hold {
+    background: #f3f4f6;
+    color: #4b5563;
+}
+
+/* Responsive for filter buttons */
+@media (max-width: 768px) {
+    .filter-buttons {
+        justify-content: center;
+    }
+    
+    .btn-filter {
+        font-size: 0.85rem;
+        padding: 6px 12px;
+    }
+}
+
+/* Status Tabs */
+.status-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    padding: 10px 20px;
+    background: white;
+    color: #374151;
+    border: 2px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+    border-color: #d60b0e;
+    color: #d60b0e;
+}
+
+.tab-btn.active {
+    background: linear-gradient(80deg, #b4140e, #088399);
+    color: white;
+    border-color: transparent;
+}
+
+.tab-btn .status-badge {
+    display: inline-block;
+    background: #d17d7d;
+    color: white;
+    border-radius: 12px;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: 8px;
+    min-width: 20px;
+    text-align: center;
+}
+
+.tab-btn.active .status-badge {
+    background: rgba(240, 231, 231, 0.3);
+    color: white;
+}
+
+/* Created Date Column */
+.created-cell {
+    text-align: center;
+    min-width: 120px;
+}
+
+.created-date {
+    font-weight: 600;
+    color: #000000;
+    font-size: 0.9rem;
+}
+
+.created-time {
+    color: #000000;
+    font-size: 0.8rem;
+    margin-top: 2px;
+}
+
+/* Urgent rows - white text for created cell */
+tr[data-priority="Urgent"] .created-date,
+tr[data-priority="urgent"] .created-date,
+tr[data-priority="Urgent"] .created-time,
+tr[data-priority="urgent"] .created-time {
+    color: #ffffff !important;
+}
+
+/* Clearance Section */
+.clearance-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.clearance-item {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    border: 2px solid #e5e7eb;
+}
+
+.clearance-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.clearance-header h4 {
+    margin: 0;
+    color: #1f2937;
+    font-size: 1.1rem;
+}
+
+.btn-clear-noc,
+.btn-clear-cs {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-clear-noc {
+    background: #3b82f6;
+    color: white;
+}
+
+.btn-clear-noc:hover:not(.disabled) {
+    background: #2563eb;
+}
+
+.btn-clear-cs {
+    background: #10b981;
+    color: white;
+}
+
+.btn-clear-cs:hover:not(.disabled) {
+    background: #059669;
+}
+
+.btn-clear-noc.disabled,
+.btn-clear-cs.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.clearance-info {
+    min-height: 60px;
+}
+
+.cleared-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #d1fae5;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.cleared-icon {
+    font-size: 1.5rem;
+    color: #065f46;
+}
+
+.cleared-label {
+    font-weight: 600;
+    color: #065f46;
+}
+
+.cleared-time {
+    font-size: 0.85rem;
+    color: #047857;
+}
+
+.cleared-by {
+    font-size: 0.85rem;
+    color: #047857;
+}
+
+.not-cleared {
+    color: #6b7280;
+    font-style: italic;
+    padding: 10px;
+}
+
+/* Modal Footer Actions */
+.modal-footer-actions {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 2px solid #e5e7eb;
+    text-align: center;
+}
+
+/* Modal Header Actions */
+.modal-header-actions {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #0b47af;
+    text-align: right;
+}
+
+.btn-edit-full {
+    padding: 12px 30px;
+    background: linear-gradient(80deg, #1f2937, #d60b0e);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-edit-full:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(214, 11, 14, 0.3);
+}
+
+/* Responsive for clearance grid */
+@media (max-width: 768px) {
+    .clearance-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .status-tabs {
+        justify-content: center;
+    }
+    
+    .tab-btn {
+        font-size: 0.85rem;
+        padding: 8px 16px;
+    }
+}
+
+
+/* Service Areas Import Styles */
+.btn-import {
+    padding: 10px 20px;
+    background: linear-gradient(80deg, #059669, #10b981);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+}
+
+.btn-import:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+}
+
+.import-instructions {
+    background: #f3f4f6;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.import-instructions h3 {
+    margin-top: 0;
+    color: #1f2937;
+    font-size: 1.1rem;
+}
+
+.import-instructions ul {
+    margin: 15px 0;
+    padding-left: 20px;
+}
+
+.import-instructions li {
+    margin: 8px 0;
+    color: #374151;
+}
+
+.import-instructions .note {
+    margin: 10px 0 0 0;
+    color: #6b7280;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+
+/* Bulk Actions Styles */
+.bulk-actions-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 15px 20px;
+    background: linear-gradient(135deg, #fef2f2 0%, #fff5f5 100%);
+    border: 2px solid #fca5a5;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(220, 38, 38, 0.1);
+}
+
+.bulk-actions-bar #selected-count {
+    font-weight: 600;
+    color: #991b1b;
+    font-size: 0.95rem;
+}
+
+.btn-bulk-delete {
+    padding: 10px 24px;
+    background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(220, 38, 38, 0.2);
+}
+
+.btn-bulk-delete:hover {
+    background: linear-gradient(135deg, #b91c1c 0%, #dc2626 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
+}
+
+.btn-bulk-delete:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(220, 38, 38, 0.2);
+}
+
+.btn-delete-selected {
+    padding: 10px 20px;
+    background: linear-gradient(80deg, #dc2626, #ef4444);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+}
+
+.btn-delete-selected:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+}
+
+/* Checkbox styling */
+.tickets-table input[type="checkbox"],
+.user-table input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.tickets-table thead input[type="checkbox"],
+.user-table thead input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+}
+
+
+/* Filters Bar Styles */
+.filters-bar {
+    display: flex;
+    gap: 20px;
+    align-items: flex-end;
+    margin-bottom: 15px;
+    padding: 20px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e5e7eb;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+}
+
+.filter-group label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #374151;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.search-group {
+    flex: 1;
+    position: relative;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 16px 12px 45px;
+    border: 2px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    background: white;
+    font-weight: 500;
+    color: #1f2937;
+}
+
+.filter-select {
+    padding: 12px 16px;
+    border: 2px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    background: white;
+    font-weight: 500;
+    color: #1f2937;
+    cursor: pointer;
+    min-width: 200px;
+}
+
+.filter-select:hover {
+    border-color: #9ca3af;
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: #dc2626;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+.search-input::placeholder {
+    color: #9ca3af;
+    font-weight: 400;
+}
+
+.search-group::before {
+    content: "🔍";
+    position: absolute;
+    left: 16px;
+    bottom: 13px;
+    font-size: 1.1rem;
+    pointer-events: none;
+}
+
+.search-input:hover {
+    border-color: #d60b0e;
+    box-shadow: 0 2px 8px rgba(214, 11, 14, 0.15);
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #d60b0e;
+    box-shadow: 0 0 0 4px rgba(214, 11, 14, 0.1);
+}
+
+.search-input:not(:placeholder-shown) {
+    background-color: #fef2f2;
+    border-color: #d60b0e;
+}
+
+/* Clear filters button */
+.clear-filters-btn {
+    padding: 12px 20px;
+    background: #6b7280;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-self: flex-end;
+}
+
+.clear-filters-btn:hover {
+    background: #4b5563;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(107, 114, 128, 0.3);
+}
+
+/* City Filter Buttons */
+.city-filters {
+    margin-bottom: 20px;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e5e7eb;
+}
+
+.city-filters-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #374151;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+}
+
+.city-buttons-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.city-btn {
+    padding: 10px 20px;
+    background: white;
+    color: #374151;
+    border: 2px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: none;
+    white-space: nowrap;
+    box-shadow: none;
+}
+
+.city-btn:hover {
+    background: #f9fafb;
+    border-color: #9ca3af;
+}
+
+.city-btn:focus {
+    outline: none;
+}
+
+.city-btn:active {
+    background: #f3f4f6;
+}
+
+.city-btn.active {
+    background: linear-gradient(135deg, #d60b0e 0%, #a00a0b 100%);
+    color: white;
+    border-color: #d60b0e;
+    box-shadow: none;
+}
+
+.city-btn.active:hover {
+    background: linear-gradient(135deg, #d60b0e 0%, #a00a0b 100%);
+    border-color: #d60b0e;
+}
+
+.city-btn.active:active {
+    background: linear-gradient(135deg, #a00a0b 0%, #800808 100%);
+}
+
+@media (max-width: 768px) {
+    .filters-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .clear-filters-btn {
+        align-self: stretch;
+    }
+    
+    .city-buttons-container {
+        gap: 8px;
+    }
+    
+    .city-btn {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+    }
+}
+
+
+/* Jump to Technical Details Button */
+.btn-jump-tech {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #05080e 0%, #0c0d11 100%);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-jump-tech:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.btn-jump-tech:active {
+    transform: translateY(0);
+}
+
+.btn-subscription {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-subscription:hover {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.btn-subscription:active {
+    transform: translateY(0);
+}
+
+.modal-header-actions {
+    display: flex;
+    gap: 20px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+/* Smooth scroll behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+.modal-content {
+    scroll-behavior: smooth;
+}
+
+/* Modal Navigation Buttons */
+.modal-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+    border: 2px solid #008080;
+    font-size: 24px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    z-index: 10001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.modal-nav-btn:hover {
+    background: #008080;
+    color: white;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 128, 128, 0.4);
+}
+
+.modal-nav-btn:disabled {
+    background: rgba(200, 200, 200, 0.5);
+    border-color: #999;
+    color: #666;
+    cursor: not-allowed;
+    transform: translateY(-50%);
+    box-shadow: none;
+}
+
+.modal-nav-btn:disabled:hover {
+    background: rgba(200, 200, 200, 0.5);
+    color: #666;
+    transform: translateY(-50%);
+    box-shadow: none;
+}
+
+.modal-prev-btn {
+    left: 30px;
+}
+
+.modal-next-btn {
+    right: 30px;
+}
+
+/* ============================================
+   MOBILE RESPONSIVE STYLES
+   ============================================ */
+
+/* Tablets and smaller (max-width: 1024px) */
+@media (max-width: 1024px) {
+    .tickets-table {
+        font-size: 0.85rem;
+    }
+    
+    .tickets-table th,
+    .tickets-table td {
+        padding: 10px 8px;
+    }
+    
+    .modal-content {
+        width: 95%;
+        max-width: 95%;
+        margin: 20px auto;
+    }
+}
+
+/* Mobile devices (max-width: 768px) */
+@media (max-width: 768px) {
+    /* Main content adjustments */
+    .main {
+        padding: 15px;
+    }
+    
+    .main h1 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+    }
+    
+    /* Status tabs - make scrollable */
+    .status-tabs {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        padding-bottom: 5px;
+    }
+    
+    .tab-btn {
+        white-space: nowrap;
+        padding: 8px 16px;
+        font-size: 0.85rem;
+        flex-shrink: 0;
+    }
+    
+    /* Actions bar */
+    .actions-bar {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .btn-create-ticket,
+    .btn-delete-selected {
+        width: 100%;
+        padding: 12px;
+    }
+    
+    /* Table - make horizontally scrollable */
+    .table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .tickets-table {
+        min-width: 800px;
+        font-size: 0.8rem;
+    }
+    
+    .tickets-table th,
+    .tickets-table td {
+        padding: 8px 6px;
+        font-size: 0.75rem;
+    }
+    
+    .ticket-number {
+        font-size: 0.8rem;
+    }
+    
+    .action-buttons:not(td .action-buttons) {
+        flex-direction: column;
+        gap: 4px;
+    }
+    
+    .action-buttons:not(td .action-buttons) button {
+        width: 100%;
+        padding: 6px 8px;
+        font-size: 0.75rem;
+    }
+    
+    /* Modals — full screen on mobile */
+    .modal-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        max-height: 92vh !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        margin: 0 !important;
+        padding: 15px;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .modal-large {
+        width: 100% !important;
+        max-width: 100% !important;
+        max-height: 92vh !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        margin: 0 !important;
+        border-radius: 0;
+    }
+    
+    .modal-content h2 {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+        padding-right: 40px; /* space for close button */
+    }
+    
+    .modal-content h3 {
+        font-size: 1.1rem;
+    }
+    
+    .close-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 1.5rem;
+    }
+    
+    /* Form sections */
+    .form-section {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .form-group {
+        width: 100%;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+    
+    /* Modal header actions */
+    .modal-header-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .btn-edit-full,
+    .btn-jump-tech,
+    .btn-subscription {
+        width: 100%;
+        padding: 10px;
+        font-size: 0.85rem;
+    }
+    
+    /* Info grid */
+    .info-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .info-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+    
+    .info-item label {
+        font-size: 0.75rem;
+    }
+    
+    /* Details sections */
+    .details-section {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+    
+    /* Images gallery */
+    .images-gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+    
+    /* Filter buttons */
+    .filter-buttons {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    .btn-filter {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+}
+
+/* Small mobile devices (max-width: 480px) */
+@media (max-width: 480px) {
+    .main {
+        padding: 10px;
+    }
+    
+    .main h1 {
+        font-size: 1.3rem;
+    }
+    
+    /* Status tabs */
+    .tab-btn {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+    }
+    
+    /* Tables - stack important info */
+    .tickets-table {
+        min-width: 700px;
+    }
+    
+    .tickets-table th,
+    .tickets-table td {
+        padding: 6px 4px;
+        font-size: 0.7rem;
+    }
+    
+    /* Modals */
+    .modal-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        max-height: 92vh !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        padding: 12px;
+        margin: 0 !important;
+        border-radius: 0;
+    }
+    
+    .modal-content h2 {
+        font-size: 1.1rem;
+    }
+    
+    .modal-content h3 {
+        font-size: 1rem;
+    }
+    
+    /* Form elements */
+    .form-section {
+        padding: 12px;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .form-actions button {
+        width: 100%;
+    }
+    
+    /* Images gallery - single column */
+    .images-gallery {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Priority and status badges */
+    .priority-badge,
+    .status-badge {
+        font-size: 0.65rem;
+        padding: 3px 6px;
+    }
+    
+    /* City buttons */
+    .city-btn {
+        padding: 8px 14px;
+        font-size: 0.8rem;
+    }
+    
+    /* User profile in topbar - already handled */
+    .user-name {
+        font-size: 0.8rem;
+    }
+    
+    .user-role {
+        font-size: 0.7rem;
+    }
+}
+
+/* Landscape orientation adjustments */
+@media (max-width: 768px) and (orientation: landscape) {
+    .modal-content {
+        max-height: 85vh;
+    }
+    
+    .status-tabs {
+        padding: 8px 0;
+    }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+    /* Increase touch targets */
+    button,
+    .btn,
+    a {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    .tab-btn {
+        min-height: 44px;
+        padding: 10px 16px;
+    }
+    
+    .city-btn {
+        min-height: 44px;
+    }
+    
+    /* Remove hover effects on touch devices */
+    .city-btn:hover,
+    .tab-btn:hover,
+    .btn-filter:hover {
+        transform: none;
+    }
+}
+
+
+/* Combined Details Column Styles */
+.details-column {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px 15px !important;
+    min-width: 180px;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.assigned-to {
+    color: #4b5563;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Action buttons within details column */
+.details-column .action-buttons {
+    display: flex;
+    gap: 6px;
+    margin-top: 4px;
+    flex-wrap: wrap;
+}
+
+.details-column .action-buttons .btn-assign,
+.details-column .action-buttons .btn-edit,
+.details-column .action-buttons .btn-delete {
+    padding: 5px 10px;
+    font-size: 0.8rem;
+}
+
+/* Ensure badges display properly in details column */
+.details-column .priority-badge,
+.details-column .status-badge {
+    display: inline-block;
+}
+
+.details-column .status-select {
+    width: 100%;
+    max-width: 150px;
+}
+
+/* Mobile responsive for details column */
+@media (max-width: 768px) {
+    .details-column {
+        min-width: 150px;
+        gap: 6px;
+        padding: 8px 10px !important;
+    }
+    
+    .detail-item {
+        font-size: 0.85rem;
+    }
+    
+    .assigned-to {
+        font-size: 0.8rem;
+    }
+    
+    .details-column .status-select {
+        font-size: 0.8rem;
+        padding: 4px 8px;
+    }
+    
+    .details-column .action-buttons .btn-assign,
+    .details-column .action-buttons .btn-edit,
+    .details-column .action-buttons .btn-delete {
+        padding: 4px 8px;
+        font-size: 0.75rem;
+    }
+}
+
+
+/* Mobile responsive for action buttons under ticket number */
+@media (max-width: 768px) {
+    .ticket-cell-container .action-buttons {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 4px;
+        flex-wrap: nowrap !important;
+        align-items: stretch;
+    }
+    
+    .ticket-cell-container .action-buttons .btn-assign,
+    .ticket-cell-container .action-buttons .btn-edit,
+    .ticket-cell-container .action-buttons .btn-delete {
+        padding: 6px 8px;
+        font-size: 0.75rem;
+        width: 100% !important;
+        display: block !important;
+    }
+    
+    /* Legacy support */
+    td .action-buttons {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 4px;
+        margin-top: 4px;
+        flex-wrap: nowrap !important;
+        align-items: stretch;
+    }
+    
+    td .action-buttons .btn-assign,
+    td .action-buttons .btn-edit,
+    td .action-buttons .btn-delete {
+        padding: 6px 8px;
+        font-size: 0.75rem;
+        width: 100% !important;
+        display: block !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .ticket-cell-container .action-buttons {
+        gap: 3px;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    
+    .ticket-cell-container .action-buttons .btn-assign,
+    .ticket-cell-container .action-buttons .btn-edit,
+    .ticket-cell-container .action-buttons .btn-delete {
+        padding: 5px 6px;
+        font-size: 0.7rem;
+        width: 100% !important;
+        display: block !important;
+    }
+    
+    /* Legacy support */
+    td .action-buttons {
+        gap: 3px;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    
+    td .action-buttons .btn-assign,
+    td .action-buttons .btn-edit,
+    td .action-buttons .btn-delete {
+        padding: 5px 6px;
+        font-size: 0.7rem;
+        width: 100% !important;
+        display: block !important;
+    }
+}
+
+
+/* Responsive Status Tabs - Stack on small screens */
+@media (max-width: 768px) {
+    .status-tabs {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .tab-btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .status-tabs {
+        flex-direction: column;
+        gap: 6px;
+    }
+    
+    .tab-btn {
+        width: 100%;
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+}
+
+
+/* ============================================
+   ADDITIONAL MOBILE FIXES
+   ============================================ */
+
+/* Modal scroll on iOS */
+.modal {
+    -webkit-overflow-scrolling: touch;
+}
+
+.modal-content {
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Ticket type tabs — scrollable on mobile */
+.ticket-type-tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    flex-wrap: nowrap;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+}
+
+.ticket-type-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.ticket-type-tab {
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+    .ticket-type-tabs {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        overflow-x: visible;
+        gap: 6px !important;
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    .ticket-type-tab {
+        padding: 10px 8px;
+        font-size: 0.82rem;
+        border: 2px solid #e0e0e0;
+        border-radius: 6px;
+        border-bottom: 2px solid #e0e0e0 !important;
+        text-align: center;
+        white-space: normal;
+        flex-shrink: unset;
+    }
+
+    .ticket-type-tab.active {
+        background: linear-gradient(80deg, #637792, #c54141);
+        color: white;
+        border-color: #f7edee !important;
+        border-bottom-color: #e0d2d3 !important;
+    }
+
+    .ticket-type-tab.active .ticket-type-badge {
+        background: rgba(255,255,255,0.3);
+        color: white;
+    }
+}
+
+/* form-row uses grid — override to single column on mobile */
+@media (max-width: 768px) {
+    .form-row {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 12px;
+    }
+
+    /* Inputs inside view modals — prevent iOS zoom */
+    .details-section input,
+    .details-section select,
+    .details-section textarea,
+    .technical-form input,
+    .technical-form select,
+    .technical-form textarea,
+    #technical-details-form input,
+    #technical-details-form select,
+    #technical-details-form textarea,
+    #modal-technical-form input,
+    #modal-technical-form select,
+    #modal-technical-form textarea {
+        font-size: 16px !important;
+    }
+
+    /* Modal header action buttons — stack vertically */
+    .modal-header-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .modal-header-actions button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Clearance grid — single column */
+    .clearance-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Clearance header — stack button below title */
+    .clearance-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .clearance-header button {
+        width: 100%;
+    }
+
+    /* Clearance section item — stack vertically */
+    .clearance-section .clearance-item {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .clearance-section .btn-clear-noc {
+        width: 100%;
+    }
+
+    /* Upload label — reduce padding */
+    .upload-label {
+        padding: 20px 15px;
+    }
+
+    /* Filters bar — stack vertically */
+    .filters-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .filter-group,
+    .search-group {
+        width: 100%;
+    }
+
+    .filter-select {
+        min-width: unset;
+        width: 100%;
+    }
+
+    .clear-filters-btn {
+        width: 100%;
+        align-self: stretch;
+    }
+
+    /* Bulk actions bar — stack */
+    .bulk-actions-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    /* Actions bar — stack create buttons */
+    .actions-bar {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .actions-bar .btn-create-ticket,
+    .actions-bar .btn-delete-selected,
+    .actions-bar .btn-bulk-delete {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Ticket type tabs — handled by 600px grid rule above */
+
+    /* Modal content — tighter padding */
+    .modal-content {
+        padding: 12px;
+        margin: 5px auto;
+        width: 98%;
+    }
+
+    /* Details section — tighter */
+    .details-section {
+        padding: 12px;
+    }
+
+    /* Upload area */
+    .upload-label {
+        padding: 15px 10px;
+    }
+
+    .upload-icon {
+        font-size: 2rem;
+    }
+
+    /* Gallery — 2 columns on small phones */
+    .images-gallery {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px;
+    }
+
+    /* Preview container */
+    .preview-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+}
+
+/* Touch device — bigger tap targets for gallery delete buttons */
+@media (hover: none) and (pointer: coarse) {
+    .gallery-item .delete-image,
+    .btn-delete-image {
+        width: 38px;
+        height: 38px;
+        font-size: 1.4rem;
+    }
+
+    /* Prevent double-tap zoom on buttons */
+    button {
+        touch-action: manipulation;
+    }
+
+    /* Upload label — easier to tap */
+    .upload-label {
+        min-height: 100px;
+    }
+}
+
+/* ── Badge size override — compact & clean ─────────────────────────── */
+.priority-badge,
+.status-badge {
+    display: inline-block !important;
+    padding: 2px 8px !important;
+    border-radius: 4px !important;
+    font-size: 0.72rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.2px !important;
+    white-space: nowrap !important;
+    line-height: 1.5 !important;
+}
+
+/* ── Details column — centered badges ─────────────────────────────── */
+.tickets-table td:last-child {
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+.details-column {
+    align-items: center !important;
+    text-align: center !important;
+}
+.detail-item {
+    justify-content: center !important;
+    width: 100% !important;
+}
+.priority-badge,
+.status-badge {
+    text-align: center !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   MODAL REDESIGN — modern, clean, polished
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* Backdrop */
+.modal {
+    background-color: rgba(15, 23, 42, 0.65) !important;
+    backdrop-filter: blur(3px) !important;
+    -webkit-backdrop-filter: blur(3px) !important;
+}
+
+/* Modal card */
+.modal-content {
+    background: #fff !important;
+    border-radius: 16px !important;
+    padding: 0 !important;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.22), 0 4px 16px rgba(0,0,0,0.1) !important;
+    animation: modalPop 0.22s cubic-bezier(0.34,1.56,0.64,1) !important;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 90vh;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid #f1f5f9;
+}
+
+@keyframes modalPop {
+    from { transform: translateY(24px) scale(0.97); opacity: 0; }
+    to   { transform: translateY(0)    scale(1);    opacity: 1; }
+}
+
+/* Modal header strip */
+.modal-content h2 {
+    margin: 0 !important;
+    padding: 20px 24px 18px !important;
+    font-size: 1.15rem !important;
+    font-weight: 800 !important;
+    color: #fff !important;
+    background: linear-gradient(135deg, #1f2937 0%, #d60b0e 100%) !important;
+    letter-spacing: -0.2px;
+    border-radius: 0 !important;
+}
+
+/* Close button — sits on the header */
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #1f2937 0%, #d60b0e 100%);
+    padding: 18px 20px;
+    border-radius: 8px 8px 0 0;
+    margin: -0px;
+}
+
+.modal-header h2,
+.modal-header #modalTitle {
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.modal-header .close {
+    color: rgba(255,255,255,0.8);
+    font-size: 1.4rem;
+    font-weight: 700;
+    cursor: pointer;
+    background: rgba(255,255,255,0.15);
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    transition: background 0.15s;
+    flex-shrink: 0;
+}
+
+.modal-header .close:hover {
+    background: rgba(255,255,255,0.3);
+    color: #fff;
+}
+
+.close-btn {
+    position: absolute !important;
+    right: 16px !important;
+    top: 14px !important;
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+    color: rgba(255,255,255,0.8) !important;
+    background: rgba(255,255,255,0.15) !important;
+    border: none !important;
+    border-radius: 50% !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: background 0.15s !important;
+    line-height: 1 !important;
+    padding: 0 !important;
+    z-index: 10;
+}
+.close-btn:hover {
+    background: rgba(255,255,255,0.3) !important;
+    color: #fff !important;
+}
+
+/* Modal body padding */
+.modal-content > *:not(h2):not(.close-btn) {
+    padding-left: 24px;
+    padding-right: 24px;
+}
+.modal-content > .form-section:first-of-type,
+.modal-content > .details-section:first-of-type {
+    margin-top: 20px;
+}
+
+/* Form sections */
+.form-section {
+    margin: 16px 24px !important;
+    padding: 16px !important;
+    background: #f8fafc !important;
+    border-radius: 10px !important;
+    border: 1px solid #f1f5f9 !important;
+}
+.form-section h3 {
+    margin: 0 0 14px 0 !important;
+    font-size: 0.8rem !important;
+    font-weight: 800 !important;
+    color: #64748b !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.6px !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    padding-bottom: 8px !important;
+}
+
+/* Details sections (view modals) */
+.details-section {
+    margin: 16px 24px !important;
+    padding: 16px !important;
+    background: #f8fafc !important;
+    border-radius: 10px !important;
+    border-left: 3px solid #d60b0e !important;
+    border-top: 1px solid #f1f5f9 !important;
+    border-right: 1px solid #f1f5f9 !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+}
+.details-section h3 {
+    margin: 0 0 14px 0 !important;
+    font-size: 0.8rem !important;
+    font-weight: 800 !important;
+    color: #64748b !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.6px !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    padding-bottom: 8px !important;
+}
+
+/* Form labels */
+.form-group label {
+    font-size: 0.78rem !important;
+    font-weight: 700 !important;
+    color: #475569 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.4px !important;
+    margin-bottom: 5px !important;
+}
+
+/* Form inputs */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 9px 12px !important;
+    border: 1.5px solid #e2e8f0 !important;
+    border-radius: 8px !important;
+    font-size: 0.9rem !important;
+    background: #fff !important;
+    transition: border-color 0.15s, box-shadow 0.15s !important;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #d60b0e !important;
+    box-shadow: 0 0 0 3px rgba(214,11,14,0.08) !important;
+    outline: none !important;
+}
+
+/* Info grid items (view modals) */
+.info-item label {
+    font-size: 0.72rem !important;
+    font-weight: 700 !important;
+    color: #94a3b8 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    margin-bottom: 3px !important;
+}
+.info-item span {
+    font-size: 0.9rem !important;
+    color: #1f2937 !important;
+    font-weight: 500 !important;
+}
+
+/* Form actions footer */
+.form-actions {
+    margin: 0 !important;
+    padding: 16px 24px !important;
+    border-top: 1px solid #f1f5f9 !important;
+    background: #f8fafc !important;
+    border-radius: 0 0 16px 16px !important;
+    gap: 10px !important;
+}
+
+/* Submit button */
+.btn-submit {
+    padding: 10px 24px !important;
+    background: linear-gradient(135deg, #1f2937 0%, #d60b0e 100%) !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-size: 0.875rem !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    transition: all 0.2s !important;
+    box-shadow: 0 2px 8px rgba(214,11,14,0.2) !important;
+}
+.btn-submit:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 16px rgba(214,11,14,0.3) !important;
+}
+
+/* Cancel button */
+.btn-cancel {
+    padding: 10px 20px !important;
+    background: #f1f5f9 !important;
+    color: #475569 !important;
+    border: 1.5px solid #e2e8f0 !important;
+    border-radius: 8px !important;
+    font-size: 0.875rem !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.15s !important;
+}
+.btn-cancel:hover {
+    background: #e2e8f0 !important;
+    color: #1f2937 !important;
+}
+
+/* Ticket info box */
+.ticket-info {
+    margin: 12px 24px !important;
+    padding: 10px 14px !important;
+    background: #f0f9ff !important;
+    border: 1px solid #bae6fd !important;
+    border-radius: 8px !important;
+    color: #0369a1 !important;
+    font-size: 0.875rem !important;
+    font-weight: 600 !important;
+}
+
+/* Modal large */
+.modal-large {
+    max-width: 960px !important;
+    max-height: 92vh !important;
+    overflow-y: auto !important;
+}
+
+/* Scrollbar inside modal */
+.modal-large::-webkit-scrollbar,
+.modal-content::-webkit-scrollbar { width: 5px; }
+.modal-large::-webkit-scrollbar-track,
+.modal-content::-webkit-scrollbar-track { background: #f8fafc; }
+.modal-large::-webkit-scrollbar-thumb,
+.modal-content::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+
+/* Service Plans modal buttons */
+.submit-btn {
+    padding: 10px 28px;
+    background: linear-gradient(135deg, #1f2937 0%, #d60b0e 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(214,11,14,0.25);
+    letter-spacing: 0.3px;
+}
+
+.submit-btn:hover {
+    background: linear-gradient(135deg, #d60b0e 0%, #1f2937 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(214,11,14,0.4);
+}
+
+.cancel-btn {
+    padding: 10px 28px;
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.cancel-btn:hover {
+    background: #e2e8f0;
+    color: #1e293b;
+    border-color: #94a3b8;
+    transform: translateY(-1px);
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   VIEW MODAL REDESIGN — Modern card style, PC + Mobile
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* Backdrop */
+.modal {
+    background: rgba(15,23,42,0.6) !important;
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+    padding: 24px !important;
+    box-sizing: border-box !important;
+    overflow-y: auto !important;
+}
+
+/* Modal card */
+.modal-content {
+    background: #fff !important;
+    border-radius: 18px !important;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.18), 0 4px 16px rgba(0,0,0,0.08) !important;
+    max-width: 700px !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    max-height: 90vh !important;
+    -webkit-overflow-scrolling: touch !important;
+    animation: modalSlideUp 0.25s ease !important;
+}
+
+.modal-large {
+    max-width: 900px !important;
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+}
+
+@keyframes modalSlideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* Gradient header */
+.modal-content > h2 {
+    margin: 0 !important;
+    padding: 22px 60px 20px 28px !important;
+    font-size: 1.1rem !important;
+    font-weight: 800 !important;
+    color: #fff !important;
+    background: linear-gradient(135deg, #1f2937 0%, #d60b0e 100%) !important;
+    letter-spacing: -0.2px !important;
+    border-radius: 0 !important;
+}
+
+/* Close button — white circle on gradient header */
+.close-btn {
+    position: absolute !important;
+    top: 14px !important;
+    right: 16px !important;
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 50% !important;
+    border: none !important;
+    background: rgba(255,255,255,0.2) !important;
+    color: #fff !important;
+    font-size: 1.2rem !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 20 !important;
+    transition: background 0.15s !important;
+    padding: 0 !important;
+}
+.close-btn:hover { background: rgba(255,255,255,0.35) !important; color: #fff !important; }
+
+/* Header action buttons row */
+.modal-header-actions {
+    display: flex !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+    padding: 14px 24px 14px !important;
+    background: #f8fafc !important;
+    border-bottom: 1.5px solid #f1f5f9 !important;
+    margin: 0 !important;
+    text-align: left !important;
+}
+
+.btn-edit-full {
+    padding: 8px 16px !important;
+    background: linear-gradient(135deg, #1f2937, #374151) !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-size: 0.8rem !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    transition: all 0.18s !important;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15) !important;
+}
+.btn-edit-full:hover { transform: translateY(-1px) !important; box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important; }
+
+.btn-jump-tech {
+    padding: 8px 16px !important;
+    background: #f1f5f9 !important;
+    color: #475569 !important;
+    border: 1.5px solid #e2e8f0 !important;
+    border-radius: 8px !important;
+    font-size: 0.8rem !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    transition: all 0.18s !important;
+}
+.btn-jump-tech:hover { background: #e2e8f0 !important; color: #1f2937 !important; }
+
+.btn-subscription {
+    padding: 8px 16px !important;
+    background: linear-gradient(135deg, #059669, #10b981) !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-size: 0.8rem !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    transition: all 0.18s !important;
+    box-shadow: 0 2px 6px rgba(5,150,105,0.2) !important;
+}
+.btn-subscription:hover { transform: translateY(-1px) !important; }
+
+/* Scrollable content area */
+#view-installation-content,
+#view-maintenance-content,
+#view-pullout-content {
+    padding: 20px 24px 28px !important;
+    overflow-y: auto !important;
+    min-height: 0 !important;
+    -webkit-overflow-scrolling: touch !important;
+}
+
+/* Details sections — card style */
+.details-section {
+    background: #fff !important;
+    border: 1.5px solid #f1f5f9 !important;
+    border-left: 4px solid #d60b0e !important;
+    border-radius: 12px !important;
+    padding: 18px 20px !important;
+    margin-bottom: 14px !important;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04) !important;
+}
+
+.details-section h3 {
+    font-size: 0.7rem !important;
+    font-weight: 800 !important;
+    color: #94a3b8 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.8px !important;
+    margin: 0 0 14px !important;
+    padding-bottom: 10px !important;
+    border-bottom: 1.5px solid #f1f5f9 !important;
+}
+
+/* Info grid — 2 cols on desktop */
+.info-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px 20px !important;
+}
+
+.info-item {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 3px !important;
+}
+
+.info-item.full-width { grid-column: 1 / -1 !important; }
+
+.info-item label {
+    font-size: 0.68rem !important;
+    font-weight: 700 !important;
+    color: #94a3b8 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    margin-bottom: 0 !important;
+}
+
+.info-item span {
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    color: #1f2937 !important;
+    word-break: break-word !important;
+}
+
+/* Description / notes boxes */
+.description-box,
+.notes-box,
+.feedback-box {
+    background: #f8fafc !important;
+    border: 1.5px solid #e2e8f0 !important;
+    border-radius: 10px !important;
+    padding: 14px 16px !important;
+    font-size: 0.875rem !important;
+    color: #374151 !important;
+    line-height: 1.6 !important;
+    min-height: 56px !important;
+}
+
+/* ── Mobile: bottom sheet style ─────────────────────────────────────── */
+@media (max-width: 600px) {
+    /* Only modals that are actively shown get the bottom-sheet flex layout */
+    .modal[style*="display: block"],
+    .modal[style*="display:block"],
+    .modal.active {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-end !important;
+        align-items: stretch !important;
+        padding: 0 !important;
+    }
+
+    .modal-content,
+    .modal-large {
+        max-width: 100% !important;
+        width: 100% !important;
+        border-radius: 20px 20px 0 0 !important;
+        margin: 0 !important;
+        max-height: 92vh !important;
+        overflow-y: auto !important;
+        animation: mobileSheetUp 0.28s ease !important;
+    }
+
+    @keyframes mobileSheetUp {
+        from { transform: translateY(100%); }
+        to   { transform: translateY(0); }
+    }
+
+    .modal-content > h2 {
+        padding: 18px 52px 16px 20px !important;
+        font-size: 1rem !important;
+        border-radius: 20px 20px 0 0 !important;
+    }
+
+    .modal-header-actions {
+        padding: 10px 16px 10px !important;
+        gap: 6px !important;
+    }
+
+    .btn-edit-full,
+    .btn-jump-tech,
+    .btn-subscription {
+        flex: 1 !important;
+        text-align: center !important;
+        font-size: 0.72rem !important;
+        padding: 8px 10px !important;
+    }
+
+    #view-installation-content,
+    #view-maintenance-content,
+    #view-pullout-content {
+        padding: 14px 16px 24px !important;
+        max-height: none !important;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+
+    .details-section {
+        padding: 14px 16px !important;
+        border-radius: 10px !important;
+        margin-bottom: 10px !important;
+    }
+
+    .clearance-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+/* Scheduled Overlay for Pending Tickets with Future Date */
+.scheduled-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    z-index: 10;
+    pointer-events: none;
+    border-radius: 4px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* For table rows */
+.tickets-table tbody tr {
+    position: relative;
+}
+
+/* For mobile cards */
+.mobile-ticket-card {
+    position: relative;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .scheduled-overlay {
+        font-size: 1rem;
+        padding: 0 10px;
+        text-align: center;
+    }
+}
+
+/* ── Fix double scrollbar on view modals ── */
+body.modal-open {
+    overflow: hidden !important;
+}
+
+/* ── Single scroll: only content div scrolls, header stays frozen ── */
+#view-maintenance-modal .modal-large,
+#view-installation-modal .modal-large,
+#view-pullout-modal .modal-large {
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    max-height: 90vh !important;
+}
+#view-maintenance-content,
+#view-installation-content,
+#view-pullout-content {
+    flex: 1 1 auto !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    min-height: 0 !important;
+    -webkit-overflow-scrolling: touch !important;
+}
+
+/* FORCE white eye icon on urgent rows - maximum specificity override */
+html body.dark-mode tr[data-priority="Urgent"] .ticket-cell-container .action-buttons .btn-view img,
+html body tr[data-priority="Urgent"] .ticket-cell-container .action-buttons .btn-view img {
+    filter: brightness(0) invert(1) !important;
+    -webkit-filter: brightness(0) invert(1) !important;
+}
+
+/* Additional urgent eye icon override */
+tr[data-priority="Urgent"] td.td-actions .action-buttons .btn-view img {
+    filter: brightness(0) invert(1) !important;
+}
+
+/* URGENT: Force white eye icon - highest priority */
+html body tr[data-priority="Urgent"] .action-buttons .btn-view img,
+tr[data-priority="Urgent"] .action-buttons .btn-view img,
+html body tr[data-priority="Urgent"] td .action-buttons .btn-view img {
+    filter: brightness(0) invert(1) !important;
+    -webkit-filter: brightness(0) invert(1) !important;
+    opacity: 1 !important;
+}
+
+/* MAXIMUM SPECIFICITY - Force white eye on urgent */
+html body tr[data-priority="Urgent"] .ticket-cell-container .action-buttons .btn-view img,
+html body tr[data-priority="urgent"] .ticket-cell-container .action-buttons .btn-view img,
+html body tr[data-priority="Urgent"] .action-buttons .btn-view,
+html body tr[data-priority="urgent"] .action-buttons .btn-view {
+    filter: brightness(0) invert(1) !important;
+    -webkit-filter: brightness(0) invert(1) !important;
+}
+
+/* Target the image directly */
+html body tr[data-priority="Urgent"] td.td-actions .action-buttons .btn-view img,
+html body tr[data-priority="urgent"] td.td-actions .action-buttons .btn-view img {
+    filter: brightness(0) invert(1) !important;
+    -webkit-filter: brightness(0) invert(1) !important;
+}
+
+/* FINAL OVERRIDE - White eye on urgent rows */
+tr[data-priority="Urgent"] .btn-view img {
+    filter: invert(1) brightness(2) !important;
+}
+
+/* URGENT: Force white eye icon - highest priority */
+html body tr[data-priority="Urgent"] .action-buttons .btn-view img,
+tr[data-priority="Urgent"] .action-buttons .btn-view img,
+html body tr[data-priority="Urgent"] td .action-buttons .btn-view img {
+    filter: brightness(0) invert(1) !important;
+    -webkit-filter: brightness(0) invert(1) !important;
+    opacity: 1 !important;
+}
+.tickets-table tbody tr[data-priority="Urgent"] td small,
+.tickets-table tbody tr[data-priority="Urgent"] td:last-child small {
+    color: #f8f9fa !important;
+}
+
+.ticket-comment-overlay {
+    position: absolute;
+    top: 0;
+    left: 130px; /* After checkbox (~40px) + Actions (~90px) */
+    right: 160px; /* Before Status column (~160px) */
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(220, 38, 38, 0.95), rgba(185, 28, 28, 0.95));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    font-size: 0.9rem;
+    padding: 10px 20px;
+    text-align: center;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.ticket-comment-overlay::before {
+    content: '⚠️ ';
+    margin-right: 8px;
+}
+
+.ticket-row-comment-overlay {
+    position: relative !important;
+}
+
+.ticket-row-comment-overlay td:first-child {
+    position: relative;
+    z-index: 20 !important;
+    width: 40px;
+    min-width: 40px;
+}
+
+.ticket-row-comment-overlay td:nth-child(2) {
+    position: relative;
+    z-index: 20 !important;
+    width: 90px;
+    min-width: 90px;
+    background: white;
+}
+
+.ticket-row-comment-overlay td:last-child {
+    position: relative;
+    z-index: 20 !important;
+    width: 160px;
+    min-width: 160px;
+    background: white;
+}
+
+/* Comment modal textarea styling */
+#status_comment {
+    width: 100%;
+    min-height: 100px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 1rem;
+    resize: vertical;
+}
+
+#status_comment:focus {
+    border-color: #1976d2;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+}

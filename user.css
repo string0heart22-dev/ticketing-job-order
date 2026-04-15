@@ -1,0 +1,393 @@
+/* ── Page Header ─────────────────────────────────────── */
+.page-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.page-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 26px;
+    font-weight: 700;
+    color: #111827;
+    margin: 0;
+}
+
+.page-title-icon { font-size: 28px; }
+
+.page-subtitle {
+    margin: 4px 0 0 38px;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+/* ── Add User Button ─────────────────────────────────── */
+.btn-add-user {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 22px;
+    background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(220,38,38,.35);
+    transition: transform .2s, box-shadow .2s;
+}
+.btn-add-user svg { width: 18px; height: 18px; }
+.btn-add-user:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(220,38,38,.45);
+}
+
+/* ── Toolbar ─────────────────────────────────────────── */
+.users-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.search-box {
+    position: relative;
+    flex: 1;
+    min-width: 220px;
+}
+.search-icon {
+    position: absolute;
+    left: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 17px;
+    height: 17px;
+    color: #9ca3af;
+    pointer-events: none;
+}
+.search-box input {
+    width: 100%;
+    padding: 10px 14px 10px 40px;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #1f2937;
+    background: #fff;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+    margin: 0;
+}
+.search-box input:focus {
+    border-color: #dc2626;
+    box-shadow: 0 0 0 3px rgba(220,38,38,.1);
+}
+
+.btn-bulk-delete {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 20px;
+    background: #fff;
+    color: #b91c1c;
+    border: 2px solid #fca5a5;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s, border-color .2s, transform .2s;
+    white-space: nowrap;
+}
+.btn-bulk-delete svg { width: 16px; height: 16px; }
+.btn-bulk-delete:hover:not(:disabled) {
+    background: #fee2e2;
+    border-color: #f87171;
+    transform: translateY(-1px);
+}
+.btn-bulk-delete:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ── Table ───────────────────────────────────────────── */
+.users-table-wrap {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 2px 16px rgba(0,0,0,.08);
+    overflow: hidden;
+}
+
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+}
+
+.users-table thead {
+    background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+}
+
+.users-table th {
+    padding: 15px 18px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .6px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.users-table td {
+    padding: 14px 18px;
+    border-bottom: 1px solid #f3f4f6;
+    color: #374151;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.users-table tbody tr:last-child td { border-bottom: none; }
+
+.users-table tbody tr {
+    transition: background .15s;
+}
+.users-table tbody tr:hover { background: #fafafa; }
+
+.col-check { width: 48px; text-align: center; }
+.col-check input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+    cursor: pointer;
+    accent-color: #dc2626;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    margin-bottom: 0;
+}
+
+/* ── User Cell (avatar + name) ───────────────────────── */
+.user-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+    letter-spacing: 0;
+}
+.avatar-0 { background: linear-gradient(135deg,#dc2626,#991b1b); }
+.avatar-1 { background: linear-gradient(135deg,#7c3aed,#4c1d95); }
+.avatar-2 { background: linear-gradient(135deg,#0891b2,#164e63); }
+.avatar-3 { background: linear-gradient(135deg,#059669,#064e3b); }
+.avatar-4 { background: linear-gradient(135deg,#d97706,#78350f); }
+.avatar-5 { background: linear-gradient(135deg,#db2777,#831843); }
+
+.user-fullname {
+    font-weight: 600;
+    color: #111827;
+}
+
+.user-email { color: #6b7280; }
+
+/* ── Role Badge ──────────────────────────────────────── */
+.role-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .3px;
+}
+.badge-admin    { background: #fee2e2; color: #991b1b; }
+.badge-employee { background: #dbeafe; color: #1e40af; }
+.badge-default  { background: #f3f4f6; color: #374151; }
+
+/* ── Action Buttons ──────────────────────────────────── */
+.col-actions { text-align: right; white-space: nowrap; }
+
+.btn-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 13px;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background .2s, transform .15s;
+}
+.btn-action svg { width: 14px; height: 14px; }
+.btn-action:hover { transform: translateY(-1px); }
+
+.btn-edit  { background: #eff6ff; color: #1d4ed8; margin-right: 6px; }
+.btn-edit:hover  { background: #dbeafe; }
+
+.btn-delete { background: #fff1f2; color: #be123c; }
+.btn-delete:hover { background: #ffe4e6; }
+
+/* ── Empty State ─────────────────────────────────────── */
+.empty-state {
+    text-align: center;
+    padding: 48px 20px;
+    color: #9ca3af;
+    font-size: 15px;
+}
+
+/* ── Modal ───────────────────────────────────────────── */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0,0,0,.55);
+    backdrop-filter: blur(4px);
+    overflow-y: auto;
+}
+.modal.active { display: block; }
+
+.modal-content {
+    position: relative;
+    background: #fff;
+    margin: 5% auto 40px;
+    padding: 36px 40px 40px;
+    border-radius: 18px;
+    width: 90%;
+    max-width: 480px;
+    box-shadow: 0 24px 64px rgba(0,0,0,.25);
+    animation: modalIn .25s ease;
+}
+
+@keyframes modalIn {
+    from { opacity: 0; transform: translateY(-24px) scale(.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 34px;
+    height: 34px;
+    border: none;
+    background: #f3f4f6;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6b7280;
+    transition: background .2s, color .2s;
+}
+.modal-close svg { width: 16px; height: 16px; }
+.modal-close:hover { background: #fee2e2; color: #dc2626; }
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+}
+.modal-header h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.modal-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.modal-icon svg { width: 22px; height: 22px; color: #fff; }
+.modal-icon-add  { background: linear-gradient(135deg,#dc2626,#991b1b); }
+.modal-icon-edit { background: linear-gradient(135deg,#2563eb,#1e40af); }
+
+/* ── Modal Form ──────────────────────────────────────── */
+.modal-form .form-group {
+    margin-bottom: 18px;
+}
+.modal-form label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 6px;
+}
+.label-hint {
+    font-weight: 400;
+    color: #9ca3af;
+    font-size: 12px;
+}
+.modal-form input,
+.modal-form select {
+    width: 100%;
+    padding: 11px 14px;
+    border: 2px solid #e5e7eb;
+    border-radius: 9px;
+    font-size: 14px;
+    color: #1f2937;
+    background: #fff;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+    margin: 0;
+}
+.modal-form input:focus,
+.modal-form select:focus {
+    border-color: #dc2626;
+    box-shadow: 0 0 0 3px rgba(220,38,38,.1);
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 13px;
+    background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 6px;
+    box-shadow: 0 4px 14px rgba(220,38,38,.35);
+    transition: transform .2s, box-shadow .2s;
+}
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(220,38,38,.45);
+}
+
+/* ── Feedback messages inside modal ─────────────────── */
+#edit-message .success { color:#065f46; background:#d1fae5; border:1px solid #6ee7b7; padding:10px 14px; border-radius:8px; margin-bottom:14px; font-size:13px; }
+#edit-message .error   { color:#991b1b; background:#fee2e2; border:1px solid #fca5a5; padding:10px 14px; border-radius:8px; margin-bottom:14px; font-size:13px; }
+
+/* ── Responsive ──────────────────────────────────────── */
+@media (max-width: 640px) {
+    .modal-content { padding: 28px 22px 32px; }
+    .page-header { flex-direction: column; }
+    .users-table th, .users-table td { padding: 12px 12px; }
+    .user-email { display: none; }
+}
